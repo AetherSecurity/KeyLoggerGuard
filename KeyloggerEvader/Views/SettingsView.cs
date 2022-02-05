@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace KeyloggerEvader
+namespace KeyloggerEvader.Views
 {
-    public partial class Form1 : Form
+    public partial class SettingsView : UserControl
     {
-        public Form1()
+        public SettingsView()
         {
             InitializeComponent();
         }

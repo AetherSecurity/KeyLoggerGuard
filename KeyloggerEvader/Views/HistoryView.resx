@@ -117,4 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ExportHistoryButton.Icon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAADcSURBVEhL7ZRBCsJADEV7BQ+gbkRF7Y3EC+hW3HbpnbyCe3cqKKKeoe34AulCaKqpCCJ98GEm
+        /ckvnaFRg5ssyxIUairRMTZiUvPKKV+Abt/mLwKOXwnAuwghDFE7TdOZlm08AQxt4b2IWA+0XI0nQGBw
+        F/8e3VlPtGxjBVBboq2hE5JDPhPS05ZyMFkB8zzPN2Xi2U560I2AWFvKweT9RLEMRvL2fS3beAIYWBzy
+        lfVYy9V4AgS8ck1HqMM1nWrZxhtQQM9BenVr80HAj/2L0Nopd0AdvQ5oeCaKHgK7JPoRoVEEAAAAAElF
+        TkSuQmCC
+</value>
+  </data>
 </root>

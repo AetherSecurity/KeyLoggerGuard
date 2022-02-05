@@ -117,4 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="StealBodyFaqLabel.Text" xml:space="preserve">
+    <value>Hackers can use software, files, and websites to infiltrate and infect your PC.  Keylogger evader lets you run suspicious files safely, in isolation from the rest of your computer. If everything proves safe, you can move them to your machine. If not, your computer is safe and youve risked nothing.</value>
+  </data>
 </root>
