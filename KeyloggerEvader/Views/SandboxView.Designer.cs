@@ -32,13 +32,15 @@
             // 
             // SandboxView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(17)))), ((int)(((byte)(51)))));
-            this.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.Name = "SandboxView";
-            this.Size = new System.Drawing.Size(770, 531);
+            this.Padding = new System.Windows.Forms.Padding(40);
+            this.Size = new System.Drawing.Size(950, 505);
+            this.Load += new System.EventHandler(this.OnViewLoad);
             this.ResumeLayout(false);
 
         }

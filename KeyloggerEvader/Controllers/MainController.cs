@@ -5,7 +5,7 @@ namespace KeyloggerEvader.Controllers
     public class MainController
     {
         #region "Fields"
-        private MainWindow MainWindow;
+        private readonly MainWindow MainWindow;
         #endregion
 
         public MainController(MainWindow MainWindow)

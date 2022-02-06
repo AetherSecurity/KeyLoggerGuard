@@ -1,11 +1,14 @@
-﻿using MaterialSkin;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using MaterialSkin;
+using KeyloggerEvader.Models;
 
 namespace KeyloggerEvader
 {
     public sealed class App
     {
         #region "Properties"
+        public SettingsModel Settings { get; private set; }
+
         public MaterialSkinManager SkinManager { get; private set; }
 
         public MainWindow MainWindowInstance { get; private set; }
@@ -17,7 +20,8 @@ namespace KeyloggerEvader
         public App()
         {
             Instance = this;
-            ConfigureApplication();
+            Settings = SettingsModel.GetUserSettings();
+            SkinManager = MaterialSkinManager.Instance;
             LaunchApplication();
         }
 
@@ -30,13 +34,31 @@ namespace KeyloggerEvader
         #endregion
 
         #region "Skin"
-        private void ConfigureSkinManager()
+        public void ConfigureSkinManager()
         {
-            SkinManager = MaterialSkinManager.Instance;
-            SkinManager.EnforceBackcolorOnAllComponents = true;
-            SkinManager.AddFormToManage(MainWindowInstance);
-            SkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            SkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+            ApplyTheme();
+            ApplyColorScheme();
+            ApplyApplicationStyle();
+        }
+
+        public void ApplyTheme()
+        {
+            SkinManager.Theme = Settings.ThemeOption;
+        }
+
+        public void ApplyColorScheme()
+        {
+            SkinManager.ColorScheme = new ColorScheme(Settings.Primary, Settings.DarkPrimary, Settings.LightPrimary, Settings.Accent, Settings.TextShading);
+        }
+
+        public void ApplyApplicationStyle()
+        {
+            MainWindowInstance.DrawerUseColors = Settings.TabMenuUseColors;
+            MainWindowInstance.DrawerHighlightWithAccent = Settings.TabMenuHighlightWithAccent;
+            MainWindowInstance.DrawerBackgroundWithAccent = Settings.TabMenuBackgroundWithAccent;
+            MainWindowInstance.DrawerShowIconsWhenHidden = Settings.TabMenuDisplayIconsWhenHidden;
+            MainWindowInstance.DrawerAutoShow = Settings.TabMenuAutoShow;
+            MainWindowInstance.FormStyle = Settings.FormStyle;
         }
         #endregion
 
@@ -45,11 +67,12 @@ namespace KeyloggerEvader
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            MainWindowInstance = new MainWindow();
+            SkinManager.AddFormToManage(MainWindowInstance);
         }
-
         private void LaunchApplication()
         {
-            MainWindowInstance = new MainWindow();
+            ConfigureApplication();
             ConfigureSkinManager();
             Application.Run(MainWindowInstance);
         }

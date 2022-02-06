@@ -56,50 +56,50 @@
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Padding = new System.Drawing.Point(0, 0);
             this.MainMenu.SelectedIndex = 0;
-            this.MainMenu.Size = new System.Drawing.Size(954, 549);
+            this.MainMenu.Size = new System.Drawing.Size(1014, 809);
             this.MainMenu.TabIndex = 0;
             // 
             // AboutUsTabPage
             // 
+            this.AboutUsTabPage.BackColor = System.Drawing.Color.White;
             this.AboutUsTabPage.ImageKey = "AboutUs.png";
             this.AboutUsTabPage.Location = new System.Drawing.Point(4, 44);
             this.AboutUsTabPage.Name = "AboutUsTabPage";
             this.AboutUsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.AboutUsTabPage.Size = new System.Drawing.Size(946, 501);
+            this.AboutUsTabPage.Size = new System.Drawing.Size(1006, 761);
             this.AboutUsTabPage.TabIndex = 0;
             this.AboutUsTabPage.Text = "About Us";
-            this.AboutUsTabPage.UseVisualStyleBackColor = true;
             // 
             // SandboxTabPage
             // 
+            this.SandboxTabPage.BackColor = System.Drawing.Color.White;
             this.SandboxTabPage.ImageKey = "Sandbox.png";
             this.SandboxTabPage.Location = new System.Drawing.Point(4, 44);
             this.SandboxTabPage.Name = "SandboxTabPage";
             this.SandboxTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SandboxTabPage.Size = new System.Drawing.Size(946, 501);
+            this.SandboxTabPage.Size = new System.Drawing.Size(1006, 761);
             this.SandboxTabPage.TabIndex = 1;
             this.SandboxTabPage.Text = "Sandbox";
-            this.SandboxTabPage.UseVisualStyleBackColor = true;
             // 
             // HistoryTabPage
             // 
+            this.HistoryTabPage.BackColor = System.Drawing.Color.White;
             this.HistoryTabPage.ImageKey = "History.png";
             this.HistoryTabPage.Location = new System.Drawing.Point(4, 44);
             this.HistoryTabPage.Name = "HistoryTabPage";
-            this.HistoryTabPage.Size = new System.Drawing.Size(946, 501);
+            this.HistoryTabPage.Size = new System.Drawing.Size(1006, 761);
             this.HistoryTabPage.TabIndex = 2;
             this.HistoryTabPage.Text = "History";
-            this.HistoryTabPage.UseVisualStyleBackColor = true;
             // 
             // SettingsTabPage
             // 
+            this.SettingsTabPage.BackColor = System.Drawing.Color.White;
             this.SettingsTabPage.ImageKey = "Settings.png";
             this.SettingsTabPage.Location = new System.Drawing.Point(4, 44);
             this.SettingsTabPage.Name = "SettingsTabPage";
-            this.SettingsTabPage.Size = new System.Drawing.Size(946, 501);
+            this.SettingsTabPage.Size = new System.Drawing.Size(1006, 761);
             this.SettingsTabPage.TabIndex = 3;
             this.SettingsTabPage.Text = "Settings";
-            this.SettingsTabPage.UseVisualStyleBackColor = true;
             // 
             // MainMenuImageList
             // 
@@ -115,22 +115,24 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(960, 640);
+            this.ClientSize = new System.Drawing.Size(1020, 900);
             this.Controls.Add(this.MainMenu);
             this.DrawerAutoShow = true;
             this.DrawerBackgroundWithAccent = true;
+            this.DrawerIndicatorWidth = 2;
             this.DrawerShowIconsWhenHidden = true;
             this.DrawerTabControl = this.MainMenu;
-            this.DrawerUseColors = true;
             this.DrawerWidth = 300;
             this.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_64;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(960, 640);
-            this.MinimumSize = new System.Drawing.Size(960, 640);
+            this.MaximumSize = new System.Drawing.Size(1020, 900);
+            this.MinimumSize = new System.Drawing.Size(1020, 900);
             this.Name = "MainWindow";
             this.Padding = new System.Windows.Forms.Padding(3, 88, 3, 3);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Keylogger Evader";
             this.Load += new System.EventHandler(this.OnApplicationLoad);
             this.MainMenu.ResumeLayout(false);
