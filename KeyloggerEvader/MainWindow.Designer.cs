@@ -50,13 +50,13 @@
             this.MainMenu.Font = new System.Drawing.Font("Courier New", 12F);
             this.MainMenu.ImageList = this.MainMenuImageList;
             this.MainMenu.ItemSize = new System.Drawing.Size(120, 40);
-            this.MainMenu.Location = new System.Drawing.Point(3, 88);
+            this.MainMenu.Location = new System.Drawing.Point(0, 88);
             this.MainMenu.MouseState = MaterialSkin.MouseState.HOVER;
             this.MainMenu.Multiline = true;
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Padding = new System.Drawing.Point(0, 0);
             this.MainMenu.SelectedIndex = 0;
-            this.MainMenu.Size = new System.Drawing.Size(1014, 809);
+            this.MainMenu.Size = new System.Drawing.Size(1017, 809);
             this.MainMenu.TabIndex = 0;
             // 
             // AboutUsTabPage
@@ -66,7 +66,7 @@
             this.AboutUsTabPage.Location = new System.Drawing.Point(4, 44);
             this.AboutUsTabPage.Name = "AboutUsTabPage";
             this.AboutUsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.AboutUsTabPage.Size = new System.Drawing.Size(1006, 761);
+            this.AboutUsTabPage.Size = new System.Drawing.Size(1009, 761);
             this.AboutUsTabPage.TabIndex = 0;
             this.AboutUsTabPage.Text = "About Us";
             // 
@@ -77,7 +77,7 @@
             this.SandboxTabPage.Location = new System.Drawing.Point(4, 44);
             this.SandboxTabPage.Name = "SandboxTabPage";
             this.SandboxTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SandboxTabPage.Size = new System.Drawing.Size(1006, 761);
+            this.SandboxTabPage.Size = new System.Drawing.Size(1009, 761);
             this.SandboxTabPage.TabIndex = 1;
             this.SandboxTabPage.Text = "Sandbox";
             // 
@@ -87,7 +87,7 @@
             this.HistoryTabPage.ImageKey = "History.png";
             this.HistoryTabPage.Location = new System.Drawing.Point(4, 44);
             this.HistoryTabPage.Name = "HistoryTabPage";
-            this.HistoryTabPage.Size = new System.Drawing.Size(1006, 761);
+            this.HistoryTabPage.Size = new System.Drawing.Size(1009, 761);
             this.HistoryTabPage.TabIndex = 2;
             this.HistoryTabPage.Text = "History";
             // 
@@ -97,7 +97,7 @@
             this.SettingsTabPage.ImageKey = "Settings.png";
             this.SettingsTabPage.Location = new System.Drawing.Point(4, 44);
             this.SettingsTabPage.Name = "SettingsTabPage";
-            this.SettingsTabPage.Size = new System.Drawing.Size(1006, 761);
+            this.SettingsTabPage.Size = new System.Drawing.Size(1009, 761);
             this.SettingsTabPage.TabIndex = 3;
             this.SettingsTabPage.Text = "Settings";
             // 
@@ -131,7 +131,7 @@
             this.MaximumSize = new System.Drawing.Size(1020, 900);
             this.MinimumSize = new System.Drawing.Size(1020, 900);
             this.Name = "MainWindow";
-            this.Padding = new System.Windows.Forms.Padding(3, 88, 3, 3);
+            this.Padding = new System.Windows.Forms.Padding(0, 88, 3, 3);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Keylogger Evader";
             this.Load += new System.EventHandler(this.OnApplicationLoad);

@@ -9,6 +9,7 @@ namespace KeyloggerEvader
         [STAThread]
         static void Main()
         {
+            //Will be initialized only in the main, and one time only.
             new App();
         }
     }

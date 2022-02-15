@@ -63,12 +63,13 @@
             this.HistoryListview.FullRowSelect = true;
             this.HistoryListview.HideSelection = false;
             this.HistoryListview.Location = new System.Drawing.Point(3, 73);
-            this.HistoryListview.MinimumSize = new System.Drawing.Size(200, 100);
+            this.HistoryListview.MaximumSize = new System.Drawing.Size(852, 707);
+            this.HistoryListview.MinimumSize = new System.Drawing.Size(852, 707);
             this.HistoryListview.MouseLocation = new System.Drawing.Point(-1, -1);
             this.HistoryListview.MouseState = MaterialSkin.MouseState.OUT;
             this.HistoryListview.Name = "HistoryListview";
             this.HistoryListview.OwnerDraw = true;
-            this.HistoryListview.Size = new System.Drawing.Size(869, 639);
+            this.HistoryListview.Size = new System.Drawing.Size(852, 707);
             this.HistoryListview.TabIndex = 0;
             this.HistoryListview.UseCompatibleStateImageBehavior = false;
             this.HistoryListview.View = System.Windows.Forms.View.Details;
@@ -134,7 +135,7 @@
             this.HistoryTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.HistoryTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.HistoryTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.HistoryTableLayout.Size = new System.Drawing.Size(875, 715);
+            this.HistoryTableLayout.Size = new System.Drawing.Size(858, 783);
             this.HistoryTableLayout.TabIndex = 1;
             // 
             // ExportButton
@@ -192,7 +193,7 @@
             this.Splitter.Location = new System.Drawing.Point(3, 53);
             this.Splitter.MouseState = MaterialSkin.MouseState.HOVER;
             this.Splitter.Name = "Splitter";
-            this.Splitter.Size = new System.Drawing.Size(869, 2);
+            this.Splitter.Size = new System.Drawing.Size(852, 2);
             this.Splitter.TabIndex = 6;
             // 
             // HistoryView
@@ -200,9 +201,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.HistoryTableLayout);
+            this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "HistoryView";
             this.Padding = new System.Windows.Forms.Padding(40);
-            this.Size = new System.Drawing.Size(955, 795);
+            this.Size = new System.Drawing.Size(938, 863);
             this.Load += new System.EventHandler(this.OnViewLoad);
             this.HistoryContextMenu.ResumeLayout(false);
             this.HistoryTableLayout.ResumeLayout(false);
@@ -212,17 +215,16 @@
         }
 
         #endregion
-
-        private MaterialSkin.Controls.MaterialListView HistoryListview;
         private System.Windows.Forms.ColumnHeader NameColumnHeader;
         private System.Windows.Forms.ColumnHeader TimeStampColumnHeader;
         private System.Windows.Forms.ColumnHeader DurationColumnHeader;
         private System.Windows.Forms.ColumnHeader StatusColumnHeader;
         private System.Windows.Forms.TableLayoutPanel HistoryTableLayout;
-        private MaterialSkin.Controls.MaterialButton ExportButton;
-        private MaterialSkin.Controls.MaterialButton ClearButton;
         private MaterialSkin.Controls.MaterialDivider Splitter;
         private MaterialSkin.Controls.MaterialContextMenuStrip HistoryContextMenu;
         private System.Windows.Forms.ToolStripMenuItem DeleteRecordToolStripMenuItem;
+        public MaterialSkin.Controls.MaterialListView HistoryListview;
+        public MaterialSkin.Controls.MaterialButton ExportButton;
+        public MaterialSkin.Controls.MaterialButton ClearButton;
     }
 }

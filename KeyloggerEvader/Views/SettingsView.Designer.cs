@@ -64,6 +64,7 @@
             // ThemeSettingsExpansionPanel
             // 
             this.ThemeSettingsExpansionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ThemeSettingsExpansionPanel.Collapse = true;
             this.ThemeSettingsExpansionPanel.Controls.Add(this.SettingsPanel);
             this.ThemeSettingsExpansionPanel.Depth = 0;
             this.ThemeSettingsExpansionPanel.Description = "A set of style choices that define the visual appearance of the application.";
@@ -72,11 +73,11 @@
             this.ThemeSettingsExpansionPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ThemeSettingsExpansionPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ThemeSettingsExpansionPanel.Location = new System.Drawing.Point(40, 40);
-            this.ThemeSettingsExpansionPanel.Margin = new System.Windows.Forms.Padding(16);
+            this.ThemeSettingsExpansionPanel.Margin = new System.Windows.Forms.Padding(0);
             this.ThemeSettingsExpansionPanel.MouseState = MaterialSkin.MouseState.HOVER;
             this.ThemeSettingsExpansionPanel.Name = "ThemeSettingsExpansionPanel";
             this.ThemeSettingsExpansionPanel.Padding = new System.Windows.Forms.Padding(25, 80, 25, 80);
-            this.ThemeSettingsExpansionPanel.Size = new System.Drawing.Size(875, 715);
+            this.ThemeSettingsExpansionPanel.Size = new System.Drawing.Size(858, 48);
             this.ThemeSettingsExpansionPanel.TabIndex = 1;
             this.ThemeSettingsExpansionPanel.Title = "Theme Settings";
             this.ThemeSettingsExpansionPanel.UseAccentColor = true;
@@ -461,11 +462,11 @@
             // 
             this.SplitterPanel1.BackColor = System.Drawing.Color.Transparent;
             this.SplitterPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.SplitterPanel1.Location = new System.Drawing.Point(40, 755);
-            this.SplitterPanel1.MaximumSize = new System.Drawing.Size(875, 20);
-            this.SplitterPanel1.MinimumSize = new System.Drawing.Size(875, 20);
+            this.SplitterPanel1.Location = new System.Drawing.Point(40, 88);
+            this.SplitterPanel1.MaximumSize = new System.Drawing.Size(858, 20);
+            this.SplitterPanel1.MinimumSize = new System.Drawing.Size(858, 20);
             this.SplitterPanel1.Name = "SplitterPanel1";
-            this.SplitterPanel1.Size = new System.Drawing.Size(875, 20);
+            this.SplitterPanel1.Size = new System.Drawing.Size(858, 20);
             this.SplitterPanel1.TabIndex = 2;
             // 
             // ApplicationSettingsExpansionPanel
@@ -480,12 +481,12 @@
             this.ApplicationSettingsExpansionPanel.ExpandHeight = 236;
             this.ApplicationSettingsExpansionPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ApplicationSettingsExpansionPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ApplicationSettingsExpansionPanel.Location = new System.Drawing.Point(40, 775);
+            this.ApplicationSettingsExpansionPanel.Location = new System.Drawing.Point(40, 108);
             this.ApplicationSettingsExpansionPanel.Margin = new System.Windows.Forms.Padding(16, 1, 16, 0);
             this.ApplicationSettingsExpansionPanel.MouseState = MaterialSkin.MouseState.HOVER;
             this.ApplicationSettingsExpansionPanel.Name = "ApplicationSettingsExpansionPanel";
             this.ApplicationSettingsExpansionPanel.Padding = new System.Windows.Forms.Padding(25, 80, 25, 80);
-            this.ApplicationSettingsExpansionPanel.Size = new System.Drawing.Size(875, 48);
+            this.ApplicationSettingsExpansionPanel.Size = new System.Drawing.Size(858, 48);
             this.ApplicationSettingsExpansionPanel.TabIndex = 3;
             this.ApplicationSettingsExpansionPanel.Title = "Application Settings";
             this.ApplicationSettingsExpansionPanel.UseAccentColor = true;
@@ -525,7 +526,7 @@
             // 
             // SplitterPanel
             // 
-            this.SplitterPanel.BackColor = System.Drawing.Color.RosyBrown;
+            this.SplitterPanel.BackColor = System.Drawing.Color.Transparent;
             this.SplitterPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.SplitterPanel.Location = new System.Drawing.Point(40, 823);
             this.SplitterPanel.MaximumSize = new System.Drawing.Size(875, 40);
@@ -547,9 +548,10 @@
             this.Controls.Add(this.ThemeSettingsExpansionPanel);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "SettingsView";
             this.Padding = new System.Windows.Forms.Padding(40, 40, 40, 0);
-            this.Size = new System.Drawing.Size(955, 863);
+            this.Size = new System.Drawing.Size(938, 863);
             this.Load += new System.EventHandler(this.OnViewLoad);
             this.ThemeSettingsExpansionPanel.ResumeLayout(false);
             this.ThemeSettingsExpansionPanel.PerformLayout();

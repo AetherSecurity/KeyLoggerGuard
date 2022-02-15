@@ -63,7 +63,7 @@
             this.HeaderCard.MouseState = MaterialSkin.MouseState.HOVER;
             this.HeaderCard.Name = "HeaderCard";
             this.HeaderCard.Padding = new System.Windows.Forms.Padding(20);
-            this.HeaderCard.Size = new System.Drawing.Size(875, 715);
+            this.HeaderCard.Size = new System.Drawing.Size(858, 783);
             this.HeaderCard.TabIndex = 0;
             // 
             // StealBodyFaqLabel
@@ -74,7 +74,7 @@
             this.StealBodyFaqLabel.Location = new System.Drawing.Point(20, 461);
             this.StealBodyFaqLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.StealBodyFaqLabel.Name = "StealBodyFaqLabel";
-            this.StealBodyFaqLabel.Size = new System.Drawing.Size(835, 75);
+            this.StealBodyFaqLabel.Size = new System.Drawing.Size(818, 75);
             this.StealBodyFaqLabel.TabIndex = 8;
             this.StealBodyFaqLabel.Text = resources.GetString("StealBodyFaqLabel.Text");
             // 
@@ -88,7 +88,7 @@
             this.StealFaqLabel.Location = new System.Drawing.Point(20, 422);
             this.StealFaqLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.StealFaqLabel.Name = "StealFaqLabel";
-            this.StealFaqLabel.Size = new System.Drawing.Size(835, 39);
+            this.StealFaqLabel.Size = new System.Drawing.Size(818, 39);
             this.StealFaqLabel.TabIndex = 7;
             this.StealFaqLabel.Text = "How can hackers steal my data?";
             this.StealFaqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -102,7 +102,7 @@
             this.RiskBodyFaqLabel.Location = new System.Drawing.Point(20, 381);
             this.RiskBodyFaqLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.RiskBodyFaqLabel.Name = "RiskBodyFaqLabel";
-            this.RiskBodyFaqLabel.Size = new System.Drawing.Size(835, 41);
+            this.RiskBodyFaqLabel.Size = new System.Drawing.Size(818, 41);
             this.RiskBodyFaqLabel.TabIndex = 6;
             this.RiskBodyFaqLabel.Text = "Running unknown software, downloading videos or other files from unknown sources," +
     " or visiting unverified websites could potentially infect your PC, allowing  to " +
@@ -118,7 +118,7 @@
             this.RiskFaqLabel.Location = new System.Drawing.Point(20, 342);
             this.RiskFaqLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.RiskFaqLabel.Name = "RiskFaqLabel";
-            this.RiskFaqLabel.Size = new System.Drawing.Size(835, 39);
+            this.RiskFaqLabel.Size = new System.Drawing.Size(818, 39);
             this.RiskFaqLabel.TabIndex = 5;
             this.RiskFaqLabel.Text = "What\'s the risk?";
             this.RiskFaqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -134,7 +134,7 @@
             this.FAQLabel.Location = new System.Drawing.Point(20, 268);
             this.FAQLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.FAQLabel.Name = "FAQLabel";
-            this.FAQLabel.Size = new System.Drawing.Size(835, 74);
+            this.FAQLabel.Size = new System.Drawing.Size(818, 74);
             this.FAQLabel.TabIndex = 4;
             this.FAQLabel.Text = "FAQ";
             this.FAQLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -148,7 +148,7 @@
             this.AboutBodyLabel.Location = new System.Drawing.Point(20, 218);
             this.AboutBodyLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.AboutBodyLabel.Name = "AboutBodyLabel";
-            this.AboutBodyLabel.Size = new System.Drawing.Size(835, 50);
+            this.AboutBodyLabel.Size = new System.Drawing.Size(818, 50);
             this.AboutBodyLabel.TabIndex = 3;
             this.AboutBodyLabel.Text = "Keylogger evader lets you run apps, download files, and visit websites in a \r\nsec" +
     "ure virtual environment isolated from the rest of your computer.";
@@ -165,7 +165,7 @@
             this.AboutLabel.Location = new System.Drawing.Point(20, 144);
             this.AboutLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.AboutLabel.Name = "AboutLabel";
-            this.AboutLabel.Size = new System.Drawing.Size(835, 74);
+            this.AboutLabel.Size = new System.Drawing.Size(818, 74);
             this.AboutLabel.TabIndex = 2;
             this.AboutLabel.Text = "About";
             this.AboutLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -179,7 +179,7 @@
             this.MissionBodyLabel.Location = new System.Drawing.Point(20, 94);
             this.MissionBodyLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.MissionBodyLabel.Name = "MissionBodyLabel";
-            this.MissionBodyLabel.Size = new System.Drawing.Size(835, 50);
+            this.MissionBodyLabel.Size = new System.Drawing.Size(818, 50);
             this.MissionBodyLabel.TabIndex = 0;
             this.MissionBodyLabel.Text = "To provide the most secured anti keylogger.";
             this.MissionBodyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -195,9 +195,9 @@
             this.MissionLabel.Location = new System.Drawing.Point(20, 20);
             this.MissionLabel.MouseState = MaterialSkin.MouseState.HOVER;
             this.MissionLabel.Name = "MissionLabel";
-            this.MissionLabel.Size = new System.Drawing.Size(835, 74);
+            this.MissionLabel.Size = new System.Drawing.Size(818, 74);
             this.MissionLabel.TabIndex = 1;
-            this.MissionLabel.Text = "- Our Mession -";
+            this.MissionLabel.Text = "- Our Mission -";
             this.MissionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.MissionLabel.UseAccent = true;
             // 
@@ -213,7 +213,7 @@
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "AboutUsView";
             this.Padding = new System.Windows.Forms.Padding(40);
-            this.Size = new System.Drawing.Size(955, 795);
+            this.Size = new System.Drawing.Size(938, 863);
             this.Load += new System.EventHandler(this.OnViewLoad);
             this.HeaderCard.ResumeLayout(false);
             this.ResumeLayout(false);

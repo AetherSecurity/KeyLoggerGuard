@@ -5,23 +5,31 @@ namespace KeyloggerEvader.Controllers
     public class MainController
     {
         #region "Fields"
-        private readonly MainWindow MainWindow;
+        private readonly MainWindow mainWindow;
         #endregion
 
-        public MainController(MainWindow MainWindow)
+        #region "Constructors / Destructor"
+        public MainController(MainWindow mainWindow)
         {
-            this.MainWindow = MainWindow;
+            this.mainWindow = mainWindow;
         }
+
+        ~MainController()
+        {
+        }
+        #endregion
+
+
 
         #region "TabMenu"
         public void AddTabMenuViews()
         {
-            if (MainWindow != null)
+            if (mainWindow != null)
             {
-                MainWindow.AboutUsTabPage.Controls.Add(new AboutUsView());
-                MainWindow.SandboxTabPage.Controls.Add(new SandboxView());
-                MainWindow.HistoryTabPage.Controls.Add(new HistoryView());
-                MainWindow.SettingsTabPage.Controls.Add(new SettingsView());
+                mainWindow.AboutUsTabPage.Controls.Add(new AboutUsView());
+                mainWindow.SandboxTabPage.Controls.Add(new SandBoxView());
+                mainWindow.HistoryTabPage.Controls.Add(new HistoryView());
+                mainWindow.SettingsTabPage.Controls.Add(new SettingsView());
             }
         }
         #endregion

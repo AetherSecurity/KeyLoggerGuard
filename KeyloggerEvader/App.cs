@@ -53,11 +53,14 @@ namespace KeyloggerEvader
 
         public void ApplyApplicationStyle()
         {
+            //Tab Menu
             MainWindowInstance.DrawerUseColors = Settings.TabMenuUseColors;
             MainWindowInstance.DrawerHighlightWithAccent = Settings.TabMenuHighlightWithAccent;
             MainWindowInstance.DrawerBackgroundWithAccent = Settings.TabMenuBackgroundWithAccent;
             MainWindowInstance.DrawerShowIconsWhenHidden = Settings.TabMenuDisplayIconsWhenHidden;
             MainWindowInstance.DrawerAutoShow = Settings.TabMenuAutoShow;
+
+            //Form Style
             MainWindowInstance.FormStyle = Settings.FormStyle;
         }
         #endregion

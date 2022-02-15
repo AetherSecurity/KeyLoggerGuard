@@ -35,10 +35,16 @@
   <PropertyGroup>
     <StartupObject>KeyloggerEvader.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Secured.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\source\repos\MaterialSkin\MaterialSkin\bin\Debug\MaterialSkin.dll</HintPath>
+      <HintPath>..\..\..\..\..\source\repos\MaterialSkin\MaterialSkin\bin\Debug\net48\win\MaterialSkin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -59,9 +65,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\SandBoxController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Enums\DesktopAccess.cs" />
+    <Compile Include="Enums\FileStatus.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Helpers\ListviewHelper.cs" />
+    <Compile Include="Helpers\MessageBoxHelpers.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -69,9 +81,13 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\SandBoxModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ISecuredDesktopService.cs" />
+    <Compile Include="Services\SecuredDesktopService.cs" />
+    <Compile Include="Utilities\User32.cs" />
     <Compile Include="Views\AboutUsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -84,11 +100,11 @@
     <Compile Include="Views\HistoryView.Designer.cs">
       <DependentUpon>HistoryView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SandboxView.cs">
+    <Compile Include="Views\SandBoxView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\SandboxView.Designer.cs">
-      <DependentUpon>SandboxView.cs</DependentUpon>
+    <Compile Include="Views\SandBoxView.Designer.cs">
+      <DependentUpon>SandBoxView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsView.cs">
       <SubType>UserControl</SubType>
@@ -115,12 +131,13 @@
     <EmbeddedResource Include="Views\HistoryView.resx">
       <DependentUpon>HistoryView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SandboxView.resx">
-      <DependentUpon>SandboxView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\SandBoxView.resx">
+      <DependentUpon>SandBoxView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SettingsView.resx">
       <DependentUpon>SettingsView.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -135,9 +152,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Assets\Images\AboutUsImage.png" />
+    <Content Include="Secured.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

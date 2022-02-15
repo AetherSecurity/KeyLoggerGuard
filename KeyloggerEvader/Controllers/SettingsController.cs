@@ -8,13 +8,19 @@ namespace KeyloggerEvader.Controllers
     public class SettingsController
     {
         #region "Fields"
-        private readonly SettingsView SettingsView; //NULL.
+        private readonly SettingsView settingsView;
         #endregion
 
-        public SettingsController(SettingsView SV)
+        #region "Constructors / Destructor"
+        public SettingsController(SettingsView settingsView)
         {
-            SettingsView = SV;
+            this.settingsView = settingsView;
         }
+
+        ~SettingsController()
+        {
+        }
+        #endregion
 
         #region "Data Management"
         public void LoadData()
@@ -26,40 +32,40 @@ namespace KeyloggerEvader.Controllers
         private void GetData()
         {
             //Theming And Styling
-            SettingsView.ThemeComboBox.DataSource = Enum.GetValues(typeof(MaterialSkinManager.Themes));
-            SettingsView.FormStyleComboBox.DataSource = Enum.GetValues(typeof(MaterialForm.FormStyles));
+            settingsView.ThemeComboBox.DataSource = Enum.GetValues(typeof(MaterialSkinManager.Themes));
+            settingsView.FormStyleComboBox.DataSource = Enum.GetValues(typeof(MaterialForm.FormStyles));
 
             //Color Scheme
-            SettingsView.PrimaryComboBox.DataSource = Enum.GetValues(typeof(Primary));
-            SettingsView.DarkPrimaryComboBox.DataSource = Enum.GetValues(typeof(Primary));
-            SettingsView.LightPrimaryComboBox.DataSource = Enum.GetValues(typeof(Primary));
-            SettingsView.AccentComboBox.DataSource = Enum.GetValues(typeof(Accent));
-            SettingsView.TextShadingComboBox.DataSource = Enum.GetValues(typeof(TextShade));
+            settingsView.PrimaryComboBox.DataSource = Enum.GetValues(typeof(Primary));
+            settingsView.DarkPrimaryComboBox.DataSource = Enum.GetValues(typeof(Primary));
+            settingsView.LightPrimaryComboBox.DataSource = Enum.GetValues(typeof(Primary));
+            settingsView.AccentComboBox.DataSource = Enum.GetValues(typeof(Accent));
+            settingsView.TextShadingComboBox.DataSource = Enum.GetValues(typeof(TextShade));
         }
 
         private void SetSelectedDataField()
         {
             //Tab Menu
-            SettingsView.UseColorsSwitch.Checked = App.Instance.Settings.TabMenuUseColors;
-            SettingsView.HighlightAccentSwitch.Checked = App.Instance.Settings.TabMenuHighlightWithAccent;
-            SettingsView.BackgroundAccentSwitch.Checked = App.Instance.Settings.TabMenuBackgroundWithAccent;
-            SettingsView.DisplayIconsSwitch.Checked = App.Instance.Settings.TabMenuDisplayIconsWhenHidden;
-            SettingsView.AutoShowSwitch.Checked = App.Instance.Settings.TabMenuAutoShow;
+            settingsView.UseColorsSwitch.Checked = App.Instance.Settings.TabMenuUseColors;
+            settingsView.HighlightAccentSwitch.Checked = App.Instance.Settings.TabMenuHighlightWithAccent;
+            settingsView.BackgroundAccentSwitch.Checked = App.Instance.Settings.TabMenuBackgroundWithAccent;
+            settingsView.DisplayIconsSwitch.Checked = App.Instance.Settings.TabMenuDisplayIconsWhenHidden;
+            settingsView.AutoShowSwitch.Checked = App.Instance.Settings.TabMenuAutoShow;
 
             //Theming And Styling
-            SettingsView.ThemeComboBox.SelectedItem = App.Instance.Settings.ThemeOption;
-            SettingsView.FormStyleComboBox.SelectedItem = App.Instance.Settings.FormStyle;
+            settingsView.ThemeComboBox.SelectedItem = App.Instance.Settings.ThemeOption;
+            settingsView.FormStyleComboBox.SelectedItem = App.Instance.Settings.FormStyle;
 
             //Color Scheme
-            SettingsView.PrimaryComboBox.SelectedItem = App.Instance.Settings.Primary;
-            SettingsView.DarkPrimaryComboBox.SelectedItem = App.Instance.Settings.DarkPrimary;
-            SettingsView.LightPrimaryComboBox.SelectedItem = App.Instance.Settings.LightPrimary;
-            SettingsView.AccentComboBox.SelectedItem = App.Instance.Settings.Accent;
-            SettingsView.TextShadingComboBox.SelectedItem = App.Instance.Settings.TextShading;
+            settingsView.PrimaryComboBox.SelectedItem = App.Instance.Settings.Primary;
+            settingsView.DarkPrimaryComboBox.SelectedItem = App.Instance.Settings.DarkPrimary;
+            settingsView.LightPrimaryComboBox.SelectedItem = App.Instance.Settings.LightPrimary;
+            settingsView.AccentComboBox.SelectedItem = App.Instance.Settings.Accent;
+            settingsView.TextShadingComboBox.SelectedItem = App.Instance.Settings.TextShading;
 
             //Application
-            SettingsView.AddStartupCheckBox.Checked = App.Instance.Settings.AutoStartup;
-            SettingsView.EnableHistoryCheckBox.Checked = App.Instance.Settings.HistoryLogging;
+            settingsView.AddStartupCheckBox.Checked = App.Instance.Settings.AutoStartup;
+            settingsView.EnableHistoryCheckBox.Checked = App.Instance.Settings.HistoryLogging;
         }
         #endregion
 
@@ -67,22 +73,22 @@ namespace KeyloggerEvader.Controllers
         public void SaveThemeSettings()
         {
             //Tab Menu
-            App.Instance.Settings.TabMenuUseColors = SettingsView.UseColorsSwitch.Checked;
-            App.Instance.Settings.TabMenuHighlightWithAccent = SettingsView.HighlightAccentSwitch.Checked;
-            App.Instance.Settings.TabMenuBackgroundWithAccent = SettingsView.BackgroundAccentSwitch.Checked;
-            App.Instance.Settings.TabMenuDisplayIconsWhenHidden = SettingsView.DisplayIconsSwitch.Checked;
-            App.Instance.Settings.TabMenuAutoShow = SettingsView.AutoShowSwitch.Checked;
+            App.Instance.Settings.TabMenuUseColors = settingsView.UseColorsSwitch.Checked;
+            App.Instance.Settings.TabMenuHighlightWithAccent = settingsView.HighlightAccentSwitch.Checked;
+            App.Instance.Settings.TabMenuBackgroundWithAccent = settingsView.BackgroundAccentSwitch.Checked;
+            App.Instance.Settings.TabMenuDisplayIconsWhenHidden = settingsView.DisplayIconsSwitch.Checked;
+            App.Instance.Settings.TabMenuAutoShow = settingsView.AutoShowSwitch.Checked;
 
             //Theming And Styling
-            App.Instance.Settings.ThemeOption = (MaterialSkinManager.Themes)SettingsView.ThemeComboBox.SelectedItem;
-            App.Instance.Settings.FormStyle = (MaterialForm.FormStyles)SettingsView.FormStyleComboBox.SelectedItem;
+            App.Instance.Settings.ThemeOption = (MaterialSkinManager.Themes)settingsView.ThemeComboBox.SelectedItem;
+            App.Instance.Settings.FormStyle = (MaterialForm.FormStyles)settingsView.FormStyleComboBox.SelectedItem;
 
             //Color Scheme
-            App.Instance.Settings.Primary = (Primary)SettingsView.PrimaryComboBox.SelectedItem;
-            App.Instance.Settings.DarkPrimary = (Primary)SettingsView.DarkPrimaryComboBox.SelectedItem;
-            App.Instance.Settings.LightPrimary = (Primary)SettingsView.LightPrimaryComboBox.SelectedItem;
-            App.Instance.Settings.Accent = (Accent)SettingsView.AccentComboBox.SelectedItem;
-            App.Instance.Settings.TextShading = (TextShade)SettingsView.TextShadingComboBox.SelectedItem;
+            App.Instance.Settings.Primary = (Primary)settingsView.PrimaryComboBox.SelectedItem;
+            App.Instance.Settings.DarkPrimary = (Primary)settingsView.DarkPrimaryComboBox.SelectedItem;
+            App.Instance.Settings.LightPrimary = (Primary)settingsView.LightPrimaryComboBox.SelectedItem;
+            App.Instance.Settings.Accent = (Accent)settingsView.AccentComboBox.SelectedItem;
+            App.Instance.Settings.TextShading = (TextShade)settingsView.TextShadingComboBox.SelectedItem;
 
             //Apply Settings
             App.Instance.ConfigureSkinManager();
@@ -94,8 +100,8 @@ namespace KeyloggerEvader.Controllers
         public void SaveApplicationSettings()
         {
             //Application
-            App.Instance.Settings.AutoStartup = SettingsView.AddStartupCheckBox.Checked;
-            App.Instance.Settings.HistoryLogging = SettingsView.EnableHistoryCheckBox.Checked;
+            App.Instance.Settings.AutoStartup = settingsView.AddStartupCheckBox.Checked;
+            App.Instance.Settings.HistoryLogging = settingsView.EnableHistoryCheckBox.Checked;
 
             //Save
             App.Instance.Settings.SaveSettings();

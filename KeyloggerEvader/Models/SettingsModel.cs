@@ -37,6 +37,7 @@ namespace KeyloggerEvader.Models
         public bool HistoryLogging { get; set; } = true;
         #endregion
 
+        #region "Constructors / Destructor"
         public SettingsModel()
         {
             if (IsUserSettingsAvailable() == false)
@@ -44,13 +45,14 @@ namespace KeyloggerEvader.Models
                 SaveSettings();
             }
         }
+        #endregion
 
-        #region "Static Methods"
+        #region "Save / Delete Settings"
         public void SaveSettings()
         {
             DeleteSavedSettings();
             string JsonContent = JsonConvert.SerializeObject(this);
-            using (FileStream FS = new FileStream("./Settings.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            using (FileStream FS = new FileStream("./Settings.json", FileMode.Create, FileAccess.ReadWrite))
             {
                 using (StreamWriter SW = new StreamWriter(FS))
                 {
@@ -66,7 +68,9 @@ namespace KeyloggerEvader.Models
                 File.Delete("./Settings.json");
             }
         }
+        #endregion
 
+        #region "Static Methods"
         public static bool IsUserSettingsAvailable()
         {
             try
@@ -95,6 +99,8 @@ namespace KeyloggerEvader.Models
             }
             else
             {
+                //If we came here, this means we will initialize the SettingsModel to call the constructor
+                //and the constructor will create a default settings that is called Settings.json.
                 return new SettingsModel();
             }
         }
