@@ -4,6 +4,8 @@ namespace KeyloggerEvader.Services
 {
     public interface ISecuredDesktopService
     {
+        string DesktopName { get; }
+
         IntPtr MainDesktopId { get; }
 
         IntPtr NewDesktopId { get; }
@@ -12,8 +14,10 @@ namespace KeyloggerEvader.Services
 
         void CreateDesktop();
 
-        void SwitchDesktop();
+        bool SwitchDesktop();
 
-        void CloseDesktop();
+        bool SetDesktopThread();
+
+        bool CloseDesktop();
     }
 }

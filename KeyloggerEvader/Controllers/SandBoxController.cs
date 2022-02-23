@@ -1,12 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using KeyloggerEvader.Enums;
 using KeyloggerEvader.Views;
 using KeyloggerEvader.Models;
-using KeyloggerEvader.Utilities;
+using KeyloggerEvader.Services;
+using KeyloggerEvader.Helpers;
 
 namespace KeyloggerEvader.Controllers
 {
@@ -17,9 +17,9 @@ namespace KeyloggerEvader.Controllers
         #endregion
 
         #region "Properties"
-        public List<SandBoxModel> SandBoxes { get; set; }
+        public List<SandBoxModel> SandBoxes { get; private set; }
 
-        public IntPtr CurrentDesktopScreen { get; private set; }
+        public ISecuredDesktopService SecuredDesktop { get; private set; }
         #endregion
 
         #region "Constructors / Destructor"
@@ -38,7 +38,8 @@ namespace KeyloggerEvader.Controllers
         private void Initialize()
         {
             SandBoxes = new List<SandBoxModel>();
-            CurrentDesktopScreen = User32.GetThreadDesktop(User32.GetCurrentThreadId());
+            SecuredDesktop = new SecuredDesktopService();
+            SecuredDesktop.Initialize();
         }
 
         private void AddFilesToListview(SandBoxModel sandBoxModel)
@@ -49,13 +50,18 @@ namespace KeyloggerEvader.Controllers
             item.SubItems.Add(sandBoxModel.FileStatus.ToString());
             item.Name = sandBoxModel.GetHashCode().ToString();
             item.Tag = sandBoxModel;
-
-
             sandBoxView.FilesListview.Items.Add(item);
         }
 
         private void UpdateStatus(SandBoxModel sandBoxModel)
         {
+            foreach (ListViewItem item in sandBoxView.FilesListview.Items)
+            {
+                if (item.Tag.Equals(sandBoxModel))
+                {
+                    item.SubItems[3].Text = sandBoxModel.FileStatus.ToString();
+                }
+            }
         }
         #endregion
 
@@ -76,7 +82,7 @@ namespace KeyloggerEvader.Controllers
                     if (!(SandBoxes.Exists(s => s.FileInfo.Name.Equals(fileInfo.Name) && s.FileInfo.FullName.Equals(fileInfo.FullName))))
                     {
                         //Add a new sandBox that contains the fileinfo and file status into the InputFiles and FilesListview.
-                        SandBoxModel sandBox = new SandBoxModel(fileInfo, FileStatus.Running);
+                        SandBoxModel sandBox = new SandBoxModel(fileInfo, FileStatus.Ready);
                         SandBoxes.Add(sandBox);
                         AddFilesToListview(sandBox);
                     }
@@ -84,29 +90,78 @@ namespace KeyloggerEvader.Controllers
             }
         }
 
-        public Task Run(SandBoxModel singleSandbox = null)
+        public void Run(SandBoxModel singleSandbox = null)
         {
-            //Creates a new task and will be executed in the ThreadPool.
-            return Task.Run(() =>
+            List<Task> fileTasks = new List<Task>();
+            //Check if the singleSandbox is not null then we will run the single sandbox.
+            if (singleSandbox != null)
             {
-                //Check if the singleSandbox is not null then we will run the single sandbox.
-                if (singleSandbox != null)
+                //Run Singular.
+                fileTasks.Add(Task.Factory.StartNew(() => SandBoxHelper.ExecuteSandBox(singleSandbox, SecuredDesktop.DesktopName)));
+            }
+            else //Otherwise run all the sandboxes that has a status of "Ready".
+            {
+                //Loop through each sandbox.
+                foreach (SandBoxModel sandBox in SandBoxes)
                 {
-                    //Run Singular.
-                }
-                else //Otherwise run all the sandboxes that has a status of "Ready".
-                {
-                    //Loop through each sandbox.
-                    foreach (SandBoxModel sandBox in SandBoxes)
+                    //Check if the sandbox status is Ready.
+                    if (sandBox.FileStatus.Equals(FileStatus.Ready))
                     {
-                        //Check if the sandbox status is Ready.
-                        if (sandBox.FileStatus.Equals(FileStatus.Ready))
-                        {
-                            //Run All.
-                        }
+                        //Run All.
+                        fileTasks.Add(Task.Factory.StartNew(() => SandBoxHelper.ExecuteSandBox(sandBox, SecuredDesktop.DesktopName)));
                     }
                 }
-            });
+            }
+
+            //If the files is greater than zero, then we can switch the screen otherwise do nothing.
+            if (fileTasks.Count > 0)
+            {
+                //Call the method "SwitchDesktop" it will attempt to switch to the new secured desktop and returns true if it succeeded otherwise false.
+                if (SecuredDesktop.SwitchDesktop())
+                {
+                    //Starts a new background task that will run in the threadpool.
+                    Task.Factory.StartNew(async () =>
+                    {
+                        //Assign the desktop thread to the backround task thread, so what ever opens it will open on the new desktop.
+                        if (SecuredDesktop.SetDesktopThread())
+                        {
+                            //Run all of the file tasks and wait for them all to be finished.
+                            await Task.WhenAll(fileTasks);
+                        }
+                        else
+                        {
+                            //If the set Desktop thread failed, we will show a message.
+                            MessageBoxHelpers.ErrorMessage("Could not set desktop thread", "SetDesktopThread");
+                        }
+
+                        //Here we are waiting for the task to finish.
+                    }).ConfigureAwait(true).GetAwaiter().GetResult().Wait();
+
+                    //Call the method "SwitchDesktop" it will attempt to switch to main desktop and returns true if it succeeded otherwise false.
+                    if (SecuredDesktop.SwitchDesktop() == false)
+                    {
+                        //If the result of the SwitchDesktop returned false, show a message to the user.
+                        MessageBoxHelpers.ErrorMessage("Failed to switch to the main desktop", "SwitchDesktop");
+                    }
+
+                    //Close the new desktop.
+                    SecuredDesktop.CloseDesktop();
+
+                    //Create a new desktop screen for another try.
+                    SecuredDesktop.CreateDesktop();
+
+                    //Loop on all of the sand boxes and update the status of each file.
+                    foreach (SandBoxModel sandBoxModel in SandBoxes)
+                    {
+                        UpdateStatus(sandBoxModel);
+                    }
+                }
+                else
+                {
+                    //If the result of the SwitchDesktop returned false, show a message to the user.
+                    MessageBoxHelpers.ErrorMessage("Could not switch to secured desktop", "SwitchDesktop");
+                }
+            }
         }
         #endregion
     }

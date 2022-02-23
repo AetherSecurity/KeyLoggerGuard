@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace KeyloggerEvader.Utilities
 {
-    public class User32
+    public class WinAPI
     {
         #region "Constants"
         public const int Autohide = 0x0000001;
@@ -104,7 +105,7 @@ namespace KeyloggerEvader.Utilities
         /// Switches to another desktop screen if found.
         /// </summary>
         [DllImport("user32.dll")]
-        private static extern bool SwitchDesktop(IntPtr hDesktop);
+        public static extern bool SwitchDesktop(IntPtr hDesktop);
 
         /// <summary>
         /// Closes a specific desktop screen
@@ -163,6 +164,79 @@ namespace KeyloggerEvader.Utilities
         /// </summary>
         [DllImport("shell32.dll", SetLastError = true)]
         public static extern IntPtr SHAppBarMessage(AppBarMessage dwMessage, [In] ref APPBARDATA pData);
+
+        [DllImport("Shlwapi.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern uint AssocQueryString(AssocF flags, AssocStr str, string pszAssoc, string pszExtra, [Out] StringBuilder pszOut, ref uint pcchOut);
+        #endregion
+
+        #region "Enums"
+        public enum DESKTOP_ACCESS : uint
+        {
+            DESKTOP_NONE = 0,
+            DESKTOP_READOBJECTS = 0x0001,
+            DESKTOP_CREATEWINDOW = 0x0002,
+            DESKTOP_CREATEMENU = 0x0004,
+            DESKTOP_HOOKCONTROL = 0x0008,
+            DESKTOP_JOURNALRECORD = 0x0010,
+            DESKTOP_JOURNALPLAYBACK = 0x0020,
+            DESKTOP_ENUMERATE = 0x0040,
+            DESKTOP_WRITEOBJECTS = 0x0080,
+            DESKTOP_SWITCHDESKTOP = 0x0100,
+
+            GENERIC_ALL = (DESKTOP_READOBJECTS | DESKTOP_CREATEWINDOW | DESKTOP_CREATEMENU |
+                            DESKTOP_HOOKCONTROL | DESKTOP_JOURNALRECORD | DESKTOP_JOURNALPLAYBACK |
+                            DESKTOP_ENUMERATE | DESKTOP_WRITEOBJECTS | DESKTOP_SWITCHDESKTOP),
+#if HOOKS_ENABLED
+            CUSTOM_SECURE = (DESKTOP_READOBJECTS | DESKTOP_CREATEWINDOW | DESKTOP_CREATEMENU | DESKTOP_HOOKCONTROL | DESKTOP_WRITEOBJECTS | DESKTOP_SWITCHDESKTOP)
+#else
+            CUSTOM_SECURE = (DESKTOP_READOBJECTS | DESKTOP_CREATEWINDOW | DESKTOP_CREATEMENU | DESKTOP_WRITEOBJECTS | DESKTOP_SWITCHDESKTOP)
+#endif
+        }
+
+        [Flags]
+        public enum AssocF : uint
+        {
+            None = 0,
+            Init_NoRemapCLSID = 0x1,
+            Init_ByExeName = 0x2,
+            Open_ByExeName = 0x2,
+            Init_DefaultToStar = 0x4,
+            Init_DefaultToFolder = 0x8,
+            NoUserSettings = 0x10,
+            NoTruncate = 0x20,
+            Verify = 0x40,
+            RemapRunDll = 0x80,
+            NoFixUps = 0x100,
+            IgnoreBaseClass = 0x200,
+            Init_IgnoreUnknown = 0x400,
+            Init_FixedProgId = 0x800,
+            IsProtocol = 0x1000,
+            InitForFile = 0x2000,
+        }
+
+        public enum AssocStr
+        {
+            Command = 1,
+            Executable,
+            FriendlyDocName,
+            FriendlyAppName,
+            NoOpen,
+            ShellNewValue,
+            DDECommand,
+            DDEIfExec,
+            DDEApplication,
+            DDETopic,
+            InfoTip,
+            QuickTip,
+            TileInfo,
+            ContentType,
+            DefaultIcon,
+            ShellExtension,
+            DropTarget,
+            DelegateExecute,
+            SupportedUriProtocols,
+            Max,
+        }
         #endregion
     }
 }
