@@ -1,4 +1,6 @@
-﻿using KeyloggerEvader.Views;
+﻿using KeyloggerEvader.Models;
+using KeyloggerEvader.Views;
+using System.Windows.Forms;
 
 namespace KeyloggerEvader.Controllers
 {
@@ -22,7 +24,17 @@ namespace KeyloggerEvader.Controllers
         }
         #endregion
 
-        #region "History Management"
+        #region "Private Methods"
+        private void AddToListView(HistoryModel historyModel)
+        {
+            ListViewItem item = new ListViewItem(historyModel.Name);
+            item.SubItems.Add(historyModel.TimeStamp.ToString());
+            item.SubItems.Add(historyModel.Duration.ToString());
+            item.SubItems.Add(historyModel.Status.ToString());
+            item.Name = historyModel.GetHashCode().ToString();
+            item.Tag = historyModel;
+            historyView.HistoryListview.Items.Add(item);
+        }
         #endregion
     }
 }

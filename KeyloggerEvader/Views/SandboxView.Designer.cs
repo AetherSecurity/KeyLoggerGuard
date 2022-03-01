@@ -201,13 +201,15 @@
             // 
             this.FilesListviewContextMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.FilesListviewContextMenu.Depth = 0;
+            this.FilesListviewContextMenu.DropShadowEnabled = false;
+            this.FilesListviewContextMenu.Font = new System.Drawing.Font("Segoe UI", 18F);
             this.FilesListviewContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeToolStripMenuItem,
             this.clearToolStripMenuItem,
             this.runToolStripMenuItem});
             this.FilesListviewContextMenu.MouseState = MaterialSkin.MouseState.HOVER;
             this.FilesListviewContextMenu.Name = "FilesListviewContextMenu";
-            this.FilesListviewContextMenu.Size = new System.Drawing.Size(118, 70);
+            this.FilesListviewContextMenu.Size = new System.Drawing.Size(177, 112);
             // 
             // removeToolStripMenuItem
             // 

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using KeyloggerEvader.Enums;
 
 namespace KeyloggerEvader.Models
@@ -9,6 +10,10 @@ namespace KeyloggerEvader.Models
         public FileInfo FileInfo { get; set; }
 
         public FileStatus FileStatus { get; set; }
+
+        public DateTime TimeStamp { get; set; }
+
+        public TimeSpan Duration { get; set; }
         #endregion
 
         #region "Constructors / Destructor"
