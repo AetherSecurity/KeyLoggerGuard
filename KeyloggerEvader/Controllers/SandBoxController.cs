@@ -83,8 +83,10 @@ namespace KeyloggerEvader.Controllers
 
             durationCounter.Reset();
             durationCounter.Start();
+
             if (customProcess.Start(desktopName))
             {
+                sandBoxModel.TimeStamp = DateTime.Now;
                 sandBoxModel.FileStatus = FileStatus.Running;
                 UpdateStatus(sandBoxModel);
 
@@ -98,8 +100,17 @@ namespace KeyloggerEvader.Controllers
                 UpdateStatus(sandBoxModel);
             }
             durationCounter.Stop();
-            TimeSpan duration = durationCounter.Elapsed;
-            //App.Instance.MainWindowInstance.Controller.HistoryView.Controller;
+            sandBoxModel.Duration = durationCounter.Elapsed;
+
+            HistoryModel historyModel = new HistoryModel()
+            {
+                Name = sandBoxModel.FileInfo.Name,
+                TimeStamp = sandBoxModel.TimeStamp,
+                Duration = sandBoxModel.Duration,
+                Status = sandBoxModel.FileStatus
+            };
+
+            App.Instance.MainWindowInstance.Controller.HistoryView.Controller.AddToListView(historyModel);
         }
         #endregion
 

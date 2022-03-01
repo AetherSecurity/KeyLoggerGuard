@@ -1,11 +1,17 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using KeyloggerEvader.Enums;
+using Newtonsoft.Json;
 
 namespace KeyloggerEvader.Models
 {
     public class HistoryModel
     {
+        #region "Fields"
+        public static readonly string filePath = AppDomain.CurrentDomain.BaseDirectory + "//History.json";
+        #endregion
+
         #region "Properties"
         public string Name { get; set; }
 
@@ -30,7 +36,24 @@ namespace KeyloggerEvader.Models
 
         public static List<HistoryModel> GetHistoryLogs()
         {
-            return null;
+            List<HistoryModel> records;
+            if (File.Exists(filePath))
+            {
+                string jsonContent = File.ReadAllText(filePath);
+                if (string.IsNullOrEmpty(jsonContent) == false)
+                {
+                    records = JsonConvert.DeserializeObject<List<HistoryModel>>(jsonContent);
+                }
+                else
+                {
+                    records = new List<HistoryModel>();
+                }
+            }
+            else
+            {
+                records = new List<HistoryModel>();
+            }
+            return records;
         }
     }
 }

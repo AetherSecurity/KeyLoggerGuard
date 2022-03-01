@@ -9,13 +9,13 @@ namespace KeyloggerEvader.Controllers
         #endregion
 
         #region "Properties"
-        public AboutUsView AboutUsView { get; private set; } = new AboutUsView();
+        public AboutUsView AboutUsView { get; private set; }
 
-        public SandBoxView SandBoxView { get; private set; } = new SandBoxView();
+        public SandBoxView SandBoxView { get; private set; }
 
-        public HistoryView HistoryView { get; private set; } = new HistoryView();
+        public HistoryView HistoryView { get; private set; }
 
-        public SettingsView SettingsView { get; private set; } = new SettingsView();
+        public SettingsView SettingsView { get; private set; }
         #endregion
 
         #region "Constructors / Destructor"
@@ -29,12 +29,22 @@ namespace KeyloggerEvader.Controllers
         }
         #endregion
 
+        #region "Private Methods"
+        private void InitializeViews()
+        {
+            AboutUsView = new AboutUsView();
+            SandBoxView = new SandBoxView();
+            HistoryView = new HistoryView();
+            SettingsView = new SettingsView();
+        }
+        #endregion
 
-        #region "TabMenu"
+        #region "Public Methods"
         public void AddTabMenuViews()
         {
             if (mainWindow != null)
             {
+                InitializeViews();
                 mainWindow.AboutUsTabPage.Controls.Add(AboutUsView);
                 mainWindow.SandboxTabPage.Controls.Add(SandBoxView);
                 mainWindow.HistoryTabPage.Controls.Add(HistoryView);

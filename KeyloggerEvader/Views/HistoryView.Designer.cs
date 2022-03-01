@@ -104,15 +104,16 @@
             this.HistoryContextMenu.MouseState = MaterialSkin.MouseState.HOVER;
             this.HistoryContextMenu.Name = "HistoryContextMenu";
             this.HistoryContextMenu.ShowImageMargin = false;
-            this.HistoryContextMenu.Size = new System.Drawing.Size(214, 40);
+            this.HistoryContextMenu.Size = new System.Drawing.Size(216, 62);
             // 
             // DeleteRecordToolStripMenuItem
             // 
             this.DeleteRecordToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.DeleteRecordToolStripMenuItem.Name = "DeleteRecordToolStripMenuItem";
             this.DeleteRecordToolStripMenuItem.Padding = new System.Windows.Forms.Padding(30, 1, 0, 1);
-            this.DeleteRecordToolStripMenuItem.Size = new System.Drawing.Size(243, 36);
+            this.DeleteRecordToolStripMenuItem.Size = new System.Drawing.Size(245, 36);
             this.DeleteRecordToolStripMenuItem.Text = "Delete Record";
+            this.DeleteRecordToolStripMenuItem.Click += new System.EventHandler(this.DeleteHistoryRecordToolStripMenuItemClick);
             // 
             // HistoryTableLayout
             // 
@@ -160,6 +161,7 @@
             this.ExportButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.ExportButton.UseAccentColor = false;
             this.ExportButton.UseVisualStyleBackColor = false;
+            this.ExportButton.Click += new System.EventHandler(this.ExportHistoryButtonClick);
             // 
             // ClearButton
             // 
@@ -183,6 +185,7 @@
             this.ClearButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.ClearButton.UseAccentColor = false;
             this.ClearButton.UseVisualStyleBackColor = false;
+            this.ClearButton.Click += new System.EventHandler(this.ClearHistoryButtonClick);
             // 
             // Splitter
             // 
