@@ -4,6 +4,9 @@ using System.Windows.Forms;
 using KeyloggerEvader.Models;
 using KeyloggerEvader.Views;
 using Newtonsoft.Json;
+using KeyloggerEvader.Extensions;
+using System;
+using KeyloggerEvader.Helpers;
 
 namespace KeyloggerEvader.Controllers
 {
@@ -14,7 +17,9 @@ namespace KeyloggerEvader.Controllers
         #endregion
 
         #region "Properties"
-        public List<HistoryModel> Records { get; private set; }
+        public List<HistoryRecordModel> HistoryRecords { get; private set; }
+        
+        public bool EnableHistoryLogging { get; private set; }
         #endregion
 
         #region "Constructors / Destructor"
@@ -26,30 +31,30 @@ namespace KeyloggerEvader.Controllers
 
         ~HistoryController()
         {
-            Records.Clear();
-            Records = null;
+            HistoryRecords.Clear();
+            HistoryRecords = null;
         }
         #endregion
 
         #region "Private Methods"
         private void Initialize()
         {
-            CreateHistoryFile();
-            Records = HistoryModel.GetHistoryLogs();
-            AddRecords();
+            HistoryRecords = GetHistoryRecords();
         }
-
-        private bool CreateHistoryFile()
+        private bool CreateFile()
         {
             try
             {
-                if (File.Exists(HistoryModel.filePath) == false)
+                if (IsFileExists())
                 {
-                    FileStream FS = File.Create(HistoryModel.filePath);
+                    FileStream FS = new FileStream(HistoryRecordModel.filePath,FileMode.Create, FileAccess.ReadWrite);
                     FS.Dispose();
                     return true;
                 }
-                return false;
+                else
+                {
+                    return false;
+                }
             }
             catch
             {
@@ -57,62 +62,235 @@ namespace KeyloggerEvader.Controllers
             }
         }
 
-        private void AddRecords()
+        private bool DeleteFile()
         {
-            if (Records.Count > 0)
+            try
             {
-                foreach (HistoryModel record in Records.ToArray())
+                if (IsFileExists())
                 {
-                    AddToListView(record);
+                    File.Delete(HistoryRecordModel.filePath);
+                    return true;
                 }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
-        private void UpdateHistoryRecords()
+        private bool IsFileExists()
         {
-            File.Delete(HistoryModel.filePath);
-            if (Records.Count > 0)
+            try
             {
-                if (CreateHistoryFile())
+                return File.Exists(HistoryRecordModel.filePath);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool WriteToFile()
+        {
+            try
+            {
+                if (DeleteFile())
                 {
-                    string JsonContent = JsonConvert.SerializeObject(Records);
-                    using (FileStream FS = new FileStream(HistoryModel.filePath, FileMode.Open, FileAccess.ReadWrite))
+                    if (CreateFile())
                     {
-                        using (StreamWriter SW = new StreamWriter(FS))
+                        using (FileStream FS = new FileStream(HistoryRecordModel.filePath, FileMode.Open, FileAccess.ReadWrite))
                         {
-                            SW.Write(JsonContent);
-                            SW.Flush();
+                            using (StreamWriter SW = new StreamWriter(FS))
+                            {
+                                SW.Write(JsonConvert.SerializeObject(HistoryRecords));
+                                SW.Flush();
+                                return true;
+                            }
                         }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private List<HistoryRecordModel> GetHistoryRecords()
+        {
+            try
+            {
+                CreateFile();
+                using (FileStream FS = new FileStream(HistoryRecordModel.filePath, FileMode.Open, FileAccess.ReadWrite))
+                {
+                    using (StreamReader SR = new StreamReader(FS))
+                    {
+                        string jsonContent = SR.ReadToEnd();
+                        if (string.IsNullOrEmpty(jsonContent) == false)
+                        {
+                            return JsonConvert.DeserializeObject<List<HistoryRecordModel>>(jsonContent);
+                        }
+                        else
+                        {
+                            return new List<HistoryRecordModel>();
+                        }
+
                     }
                 }
             }
+            catch
+            {
+                return new List<HistoryRecordModel>();
+            }
+        }
+
+        private void AddRecordToListview(HistoryRecordModel record)
+        {
+            ListViewItem item = new ListViewItem(record.Id);
+            item.SubItems.Add(record.FileName);
+            item.SubItems.Add(record.FileExtension);
+            item.SubItems.Add(record.FilePath);
+            item.SubItems.Add(record.StartupTime);
+            item.SubItems.Add(record.Duration);
+            item.SubItems.Add(record.FileStatus);
+            item.Name = record.GetHashCode().ToString();
+            item.Tag = record;
+            historyView.HistoryListview.Items.Add(item);
+            ListviewHelper.ResizeColumn(historyView.HistoryListview, historyView.HistoryListview.Columns.Count - 1);
+        }
+
+        private void RemoveRecordFromListview(HistoryRecordModel record)
+        {
+            historyView.HistoryListview.Items.RemoveByKey(record.GetHashCode().ToString());
         }
         #endregion
 
+
         #region "Public Methods"
-        public void AddToListView(HistoryModel historyModel)
+        public bool AddRecord(HistoryRecordModel newRecord)
         {
-            ListViewItem item = new ListViewItem(historyModel.Name);
-            item.SubItems.Add(historyModel.TimeStamp.ToString());
-            item.SubItems.Add(historyModel.Duration.ToString());
-            item.SubItems.Add(historyModel.Status.ToString());
-            item.Name = historyModel.GetHashCode().ToString();
-            item.Tag = historyModel;
-            historyView.HistoryListview.Items.Add(item);
-            Records.Add(historyModel);
-            UpdateHistoryRecords();
+            try
+            {
+                if (EnableHistoryLogging)
+                {
+                    AddRecordToListview(newRecord);
+                    HistoryRecords.Add(newRecord);
+                    return WriteToFile();
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public void RemoveHistoryRecord(HistoryModel record)
+        public bool RemoveRecord(HistoryRecordModel record)
         {
-            Records.Remove(record);
-            UpdateHistoryRecords();
+            try
+            {
+                if (EnableHistoryLogging)
+                {
+                    if (HistoryRecords.Count == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        if (HistoryRecords.Remove(h => h.Id.Equals(record.Id)))
+                        {
+                            RemoveRecordFromListview(record);
+                            return WriteToFile();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public void ClearHistory()
+        public bool ClearHistoryRecords()
         {
-            Records.Clear();
-            UpdateHistoryRecords();
+            try
+            {
+                if (EnableHistoryLogging)
+                {
+                    HistoryRecords.Clear();
+                    return WriteToFile();
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ExportHistoryRecords()
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                    Title = "Save History Records",
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    DefaultExt = "txt",
+                    Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+                    RestoreDirectory = true
+                };
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (FileStream FS = new FileStream(saveFileDialog.FileName, FileMode.Open, FileAccess.ReadWrite))
+                    {
+                        using (StreamWriter SW = new StreamWriter(FS))
+                        {
+                            foreach (HistoryRecordModel record in HistoryRecords)
+                            {
+                                SW.WriteLine(record.ToString());
+                            }
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
         #endregion
     }

@@ -74,15 +74,15 @@ namespace KeyloggerEvader.Controllers
 
         public void ExecuteSandBox(SandBoxModel sandBoxModel, string desktopName)
         {
-            Stopwatch durationCounter = new Stopwatch();
+            //Stopwatch durationCounter = new Stopwatch();
 
             CustomProcess customProcess = new CustomProcess()
             {
                 FileName = sandBoxModel.FileInfo.FullName
             };
 
-            durationCounter.Reset();
-            durationCounter.Start();
+            //durationCounter.Reset();
+            //durationCounter.Start();
 
             if (customProcess.Start(desktopName))
             {
@@ -99,18 +99,20 @@ namespace KeyloggerEvader.Controllers
                 sandBoxModel.FileStatus = FileStatus.Error;
                 UpdateStatus(sandBoxModel);
             }
-            durationCounter.Stop();
-            sandBoxModel.Duration = durationCounter.Elapsed;
+            //durationCounter.Stop();
+            //sandBoxModel.Duration = durationCounter.Elapsed;
 
-            HistoryModel historyModel = new HistoryModel()
-            {
-                Name = sandBoxModel.FileInfo.Name,
-                TimeStamp = sandBoxModel.TimeStamp,
-                Duration = sandBoxModel.Duration,
-                Status = sandBoxModel.FileStatus
-            };
+            //HistoryRecordModel historyModel = new HistoryRecordModel()
+            //{
+            //    FileName = sandBoxModel.FileInfo.Name,
+            //    FileExtension = sandBoxModel.FileInfo.Extension,
+            //    FilePath = Path.GetDirectoryName(sandBoxModel.FileInfo.FullName),
+            //    StartupTime = sandBoxModel.TimeStamp.ToString(),
+            //    Duration = sandBoxModel.Duration.ToString(),
+            //    FileStatus = sandBoxModel.FileStatus.ToString()
+            //};
 
-            App.Instance.MainWindowInstance.Controller.HistoryView.Controller.AddToListView(historyModel);
+            //App.Instance.MainWindowInstance.Controller.HistoryView.Controller.AddRecord(historyModel);
         }
         #endregion
 
@@ -198,12 +200,6 @@ namespace KeyloggerEvader.Controllers
 
                     //Create a new desktop screen for another try.
                     SecuredDesktop.CreateDesktop();
-
-                    ////Loop on all of the sand boxes and update the status of each file.
-                    //foreach (SandBoxModel sandBoxModel in SandBoxes)
-                    //{
-                    //    UpdateStatus(sandBoxModel);
-                    //}
                 }
                 else
                 {

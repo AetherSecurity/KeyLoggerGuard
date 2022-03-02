@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Controllers">
+    <Position X="10.753" Y="0.5" Height="0.285" Width="1.235" />
+  </Comment>
+  <Comment CommentText="Enums">
+    <Position X="8.751" Y="0.5" Height="0.285" Width="1.235" />
+  </Comment>
+  <Comment CommentText="Extensions">
+    <Position X="6.75" Y="0.5" Height="0.285" Width="1.235" />
+  </Comment>
+  <Comment CommentText="Helpers">
+    <Position X="4.489" Y="0.5" Height="0.285" Width="1.235" />
+  </Comment>
+  <Comment CommentText="Helpers">
+    <Position X="2.479" Y="0.5" Height="0.285" Width="1.235" />
+  </Comment>
+  <Comment CommentText="Services">
+    <Position X="10.746" Y="4.611" Height="0.285" Width="1.235" />
+  </Comment>
+  <Comment CommentText="Utilities">
+    <Position X="8.754" Y="4.6" Height="0.285" Width="1.235" />
+  </Comment>
+  <Comment CommentText="Views">
+    <Position X="6.772" Y="4.609" Height="0.285" Width="1.235" />
+  </Comment>
+  <Class Name="KeyloggerEvader.Controllers.HistoryController" Collapsed="true">
+    <Position X="10.75" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAADAIAAAAAAAQCAAAQAAAAAAQAAhQAEAAEAAAAAEAA=</HashCode>
+      <FileName>Controllers\HistoryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Controllers.MainController" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAgIAAAgAAAAAAAAAABAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\MainController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Controllers.SandBoxController" Collapsed="true">
+    <Position X="10.75" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAQAAEAAAABAAAAAAAAACAAQAQABAAAI=</HashCode>
+      <FileName>Controllers\SandBoxController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Controllers.SettingsController" Collapsed="true">
+    <Position X="10.75" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAEAEACQAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Controllers\SettingsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Extensions.ListExtensions" Collapsed="true">
+    <Position X="6.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\ListExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Helpers.ListviewHelper" Collapsed="true">
+    <Position X="4.5" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\ListviewHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Helpers.MessageBoxHelpers" Collapsed="true">
+    <Position X="4.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAIAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\MessageBoxHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Helpers.SandBoxHelper" Collapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\SandBoxHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Helpers.ViewHelper" Collapsed="true">
+    <Position X="4.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\ViewHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Models.HistoryRecordModel" Collapsed="true">
+    <Position X="2.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAACAAAAAAAAAAAAAAAAAEAAAAFAAABIAAA=</HashCode>
+      <FileName>Models\HistoryRecordModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Models.SandBoxModel" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAACAAAAAAAAAAAAAAAAAAAAAEAAAAAIAAA=</HashCode>
+      <FileName>Models\SandBoxModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Models.SettingsModel" Collapsed="true">
+    <Position X="2.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEEIAhAAAAAgEAABAAAGMIAIAAAAAEAAAACAAGA=</HashCode>
+      <FileName>Models\SettingsModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Services.SecuredDesktopService" Collapsed="true">
+    <Position X="10.75" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAARQAAgAAAAhAAAgAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Services\SecuredDesktopService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KeyloggerEvader.Utilities.CustomProcess" Collapsed="true">
+    <Position X="8.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAAAACAAAAAAIAAAQAAAAAAAAAIAAAAEAABAAAE=</HashCode>
+      <FileName>Utilities\CustomProcess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Utilities.WinAPI" Collapsed="true">
+    <Position X="8.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAABIAAFQQAAAAAAgIQAAAAAAAAQAhAAAAAAA=</HashCode>
+      <FileName>Utilities\WinAPI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Views.AboutUsView" Collapsed="true">
+    <Position X="6.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgQCAiAAAAABAACAAAACAIAAAQAAAAAIQAEAAQA=</HashCode>
+      <FileName>Views\AboutUsView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Views.HistoryView" Collapsed="true">
+    <Position X="6.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQQAYAASIAABAAwAiAAAACQAAAAAAAAAARAAAABYA=</HashCode>
+      <FileName>Views\HistoryView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Views.SandBoxView" Collapsed="true">
+    <Position X="6.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAQQQAiASAGIAAAAADwIAACAAkAEAYKgAAAAIgAAQA=</HashCode>
+      <FileName>Views\SandBoxView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyloggerEvader.Views.SettingsView" Collapsed="true">
+    <Position X="6.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgEAAAIAASAAIAACAECQBAAmSEYABAQiAAAAIAAVEQA=</HashCode>
+      <FileName>Views\SettingsView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="KeyloggerEvader.Enums.FileStatus" Collapsed="true">
+    <Position X="8.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQEAAAQAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\FileStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Times New Roman" Size="10" />
+</ClassDiagram>

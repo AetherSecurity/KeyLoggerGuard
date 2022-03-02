@@ -29,24 +29,19 @@ namespace KeyloggerEvader.Views
         {
             foreach (ListViewItem selectedItem in HistoryListview.SelectedItems)
             {
-                HistoryListview.Items.Remove(selectedItem);
-                Controller.RemoveHistoryRecord((HistoryModel)selectedItem.Tag);
+                Controller.RemoveRecord((HistoryRecordModel)selectedItem.Tag);
             }
         }
 
         private void ClearHistoryButtonClick(object sender, EventArgs e)
         {
             HistoryListview.Items.Clear();
-            Controller.ClearHistory();
+            Controller.ClearHistoryRecords();
         }
 
         private void ExportHistoryButtonClick(object sender, EventArgs e)
         {
-            foreach (ListViewItem record in HistoryListview.Items)
-            {
-                //Create a txt file, chosen by the user, save it in a specific location.
-                //Write each record into the text file, should be formatted.
-            }
+            Controller.ExportHistoryRecords();
         }
         #endregion
     }
