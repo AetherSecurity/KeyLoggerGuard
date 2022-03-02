@@ -72,7 +72,6 @@
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Helpers\ListviewHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelpers.cs" />
-    <Compile Include="Helpers\SandBoxHelper.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -139,7 +138,6 @@
       <DependentUpon>SettingsView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="Class Diagrams\AppClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -156,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Secured.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Class Diagrams\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

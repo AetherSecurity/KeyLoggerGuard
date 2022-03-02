@@ -8,7 +8,6 @@ using KeyloggerEvader.Models;
 using KeyloggerEvader.Services;
 using KeyloggerEvader.Helpers;
 using KeyloggerEvader.Utilities;
-using System.Diagnostics;
 using System;
 
 namespace KeyloggerEvader.Controllers
