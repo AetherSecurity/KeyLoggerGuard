@@ -1,12 +1,17 @@
 ﻿using System;
-using System.IO;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using KeyloggerEvader.Helpers;
 
 namespace KeyloggerEvader.Utilities
 {
     public class CustomProcess
     {
+        #region "Fields"
+        private readonly Stopwatch durationCounter;
+        #endregion
+
         #region "Properties"
         public string FileName { get; set; }
 
@@ -15,10 +20,13 @@ namespace KeyloggerEvader.Utilities
         public IntPtr Handle { get; private set; }
 
         public bool IsRunning { get; private set; }
+
+        public TimeSpan Duration { get; private set; }
         #endregion
 
         public CustomProcess()
         {
+            durationCounter = new Stopwatch();
             FileName = string.Empty;
             Handle = IntPtr.Zero;
             IsRunning = false;
@@ -41,25 +49,6 @@ namespace KeyloggerEvader.Utilities
             }
             return false;
         }
-
-        private string GetFileExtension()
-        {
-            if (string.IsNullOrEmpty(FileName) == false)
-            {
-                try
-                {
-                    return Path.GetExtension(FileName);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
         #endregion
 
         public bool Start(string desktopName = null)
@@ -67,21 +56,32 @@ namespace KeyloggerEvader.Utilities
             if (IsRunning == false && Handle == IntPtr.Zero)
             {
                 string associatedFile = null;
-                if (ResolveExtension(GetFileExtension(), ref associatedFile))
+                string fileExtension = FileHelper.GetFileExtension(FileName);
+                if (string.IsNullOrEmpty(fileExtension) == false)
                 {
-                    string command = string.Format("\"{0}\" \"{1}\"", associatedFile, FileName);
-                    WinAPI.STARTUPINFO startupInfo = new WinAPI.STARTUPINFO
+                    if (ResolveExtension(fileExtension, ref associatedFile))
                     {
-                        lpDesktop = desktopName
-                    };
-                    WinAPI.PROCESS_INFORMATION processInfo = new WinAPI.PROCESS_INFORMATION();
-                    bool result = WinAPI.CreateProcess(null, command, IntPtr.Zero, IntPtr.Zero, false, 0, IntPtr.Zero, null, ref startupInfo, out processInfo);
-                    if (result == true)
-                    {
-                        Id = (int)processInfo.dwProcessId;
-                        Handle = processInfo.hProcess;
-                        IsRunning = true;
-                        return true;
+                        string command = string.Format("\"{0}\" \"{1}\"", associatedFile, FileName);
+                        WinAPI.STARTUPINFO startupInfo = new WinAPI.STARTUPINFO
+                        {
+                            lpDesktop = desktopName
+                        };
+                        WinAPI.PROCESS_INFORMATION processInfo = new WinAPI.PROCESS_INFORMATION();
+
+                        bool result = WinAPI.CreateProcess(null, command, IntPtr.Zero, IntPtr.Zero, false, 0, IntPtr.Zero, null, ref startupInfo, out processInfo);
+                        if (result == true)
+                        {
+                            durationCounter.Reset();
+                            durationCounter.Start();
+                            Id = (int)processInfo.dwProcessId;
+                            Handle = processInfo.hProcess;
+                            IsRunning = true;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -103,6 +103,8 @@ namespace KeyloggerEvader.Utilities
         {
             if (IsRunning == true && Handle != IntPtr.Zero)
             {
+                durationCounter.Stop();
+                Duration = durationCounter.Elapsed;
                 return WinAPI.TerminateProcess(Handle, 0);
             }
             else
@@ -117,6 +119,8 @@ namespace KeyloggerEvader.Utilities
             {
                 if (WinAPI.GetExitCodeProcess(Handle, out uint exitCode) == false || exitCode != 259)
                 {
+                    durationCounter.Stop();
+                    Duration = durationCounter.Elapsed;
                     IsRunning = false;
                     Handle = IntPtr.Zero;
                 }

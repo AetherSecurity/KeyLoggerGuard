@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
-using KeyloggerEvader.Helpers;
-using KeyloggerEvader.Controllers;
 using KeyloggerEvader.Enums;
 using KeyloggerEvader.Models;
+using KeyloggerEvader.Helpers;
+using KeyloggerEvader.Controllers;
 
 namespace KeyloggerEvader.Views
 {
@@ -11,6 +12,8 @@ namespace KeyloggerEvader.Views
     {
         #region "Properties"
         public SandBoxController Controller { get; private set; }
+
+        public SynchronizationContext SyncContext { get; private set; }
         #endregion
 
         #region "Constructors & Destructor"
@@ -18,6 +21,7 @@ namespace KeyloggerEvader.Views
         {
             InitializeComponent();
             SetControlsDoubleBuffered();
+            SyncContext = SynchronizationContext.Current;
             Controller = new SandBoxController(this);
         }
 
@@ -76,11 +80,8 @@ namespace KeyloggerEvader.Views
         private void RemoveToolStripMenuItemClick(object sender, EventArgs e)
         {
             int runningTasks = 0;
-            //Loop through each selected item in the listview and remove it.
             foreach (ListViewItem selectedItem in FilesListview.SelectedItems)
             {
-                //If the file status is running then we can't delete it instead we will warn the user
-                //to wait till it's finished and then try to remove it.
                 SandBoxModel sandBoxModel = (SandBoxModel)selectedItem.Tag;
 
                 if (sandBoxModel.FileStatus.Equals(FileStatus.Running))
@@ -89,10 +90,7 @@ namespace KeyloggerEvader.Views
                 }
                 else
                 {
-                    //Remove the selected item from the files listview.
-                    FilesListview.Items.Remove(selectedItem);
-                    //Remove the selected item from the InputFiles.
-                    Controller.SandBoxes.Remove(sandBoxModel);
+                    Controller.RemoveSandBox(sandBoxModel);
                 }
             }
             if (runningTasks > 0)
@@ -104,11 +102,8 @@ namespace KeyloggerEvader.Views
         private void ClearToolStripMenuItemClick(object sender, EventArgs e)
         {
             int runningTasks = 0;
-            //Loop through each selected item in the listview and remove it.
             foreach (ListViewItem selectedItem in FilesListview.Items)
             {
-                //If the file status is running then we can't delete it instead we will warn the user
-                //to wait till it's finished and then try to remove it.
                 SandBoxModel sandBoxModel = (SandBoxModel)selectedItem.Tag;
 
                 if (sandBoxModel.FileStatus.Equals(FileStatus.Running))
@@ -117,10 +112,7 @@ namespace KeyloggerEvader.Views
                 }
                 else
                 {
-                    //Remove the selected item from the files listview.
-                    FilesListview.Items.Remove(selectedItem);
-                    //Remove the selected item from the InputFiles.
-                    Controller.SandBoxes.Remove(sandBoxModel);
+                    Controller.RemoveSandBox(sandBoxModel);
                 }
             }
 
@@ -151,7 +143,6 @@ namespace KeyloggerEvader.Views
 
         private void RunButtonClick(object sender, EventArgs e)
         {
-            //Execute all of the files.
             Controller.Run();
         }
         #endregion

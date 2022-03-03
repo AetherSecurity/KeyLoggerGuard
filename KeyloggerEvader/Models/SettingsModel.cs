@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using KeyloggerEvader.Helpers;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using Newtonsoft.Json;
@@ -7,6 +8,10 @@ namespace KeyloggerEvader.Models
 {
     public class SettingsModel
     {
+        #region "Fields"
+        private static readonly string filePath = FileHelper.GetBaseDirectoryPath() + "//Settings.json";
+        #endregion
+
         #region "Properties"
         public bool TabMenuUseColors { get; set; } = true;
 
@@ -52,7 +57,7 @@ namespace KeyloggerEvader.Models
         {
             DeleteSavedSettings();
             string JsonContent = JsonConvert.SerializeObject(this);
-            using (FileStream FS = new FileStream("./Settings.json", FileMode.Create, FileAccess.ReadWrite))
+            using (FileStream FS = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
             {
                 using (StreamWriter SW = new StreamWriter(FS))
                 {
@@ -63,9 +68,9 @@ namespace KeyloggerEvader.Models
 
         public void DeleteSavedSettings()
         {
-            if (File.Exists("./Settings.json"))
+            if (File.Exists(filePath))
             {
-                File.Delete("./Settings.json");
+                File.Delete(filePath);
             }
         }
         #endregion
@@ -75,7 +80,7 @@ namespace KeyloggerEvader.Models
         {
             try
             {
-                return File.Exists("./Settings.json");
+                return File.Exists(filePath);
             }
             catch
             {
@@ -88,7 +93,7 @@ namespace KeyloggerEvader.Models
             if (IsUserSettingsAvailable())
             {
                 SettingsModel UserSettings = null;
-                using (FileStream FS = new FileStream("./Settings.json", FileMode.Open, FileAccess.Read))
+                using (FileStream FS = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
                     using (StreamReader SR = new StreamReader(FS))
                     {

@@ -1,12 +1,13 @@
-﻿using System.IO;
-using System.Collections.Generic;
+﻿using System;
+using System.IO;
+using System.Threading;
 using System.Windows.Forms;
-using KeyloggerEvader.Models;
-using KeyloggerEvader.Views;
+using System.Collections.Generic;
 using Newtonsoft.Json;
-using KeyloggerEvader.Extensions;
-using System;
+using KeyloggerEvader.Views;
+using KeyloggerEvader.Models;
 using KeyloggerEvader.Helpers;
+using KeyloggerEvader.Extensions;
 
 namespace KeyloggerEvader.Controllers
 {
@@ -39,15 +40,17 @@ namespace KeyloggerEvader.Controllers
         #region "Private Methods"
         private void Initialize()
         {
+            EnableHistoryLogging = App.Instance.Settings.HistoryLogging;
             HistoryRecords = GetHistoryRecords();
+            AddRecordsToListview();
         }
         private bool CreateFile()
         {
             try
             {
-                if (IsFileExists())
+                if (IsFileExists() == false)
                 {
-                    FileStream FS = new FileStream(HistoryRecordModel.filePath,FileMode.Create, FileAccess.ReadWrite);
+                    FileStream FS = new FileStream(HistoryRecordModel.filePath, FileMode.Create, FileAccess.ReadWrite);
                     FS.Dispose();
                     return true;
                 }
@@ -156,24 +159,38 @@ namespace KeyloggerEvader.Controllers
             }
         }
 
+        private void AddRecordsToListview()
+        {
+            foreach (HistoryRecordModel record in HistoryRecords)
+            {
+                AddRecordToListview(record);
+            }
+        }
+
         private void AddRecordToListview(HistoryRecordModel record)
         {
-            ListViewItem item = new ListViewItem(record.Id);
-            item.SubItems.Add(record.FileName);
-            item.SubItems.Add(record.FileExtension);
-            item.SubItems.Add(record.FilePath);
-            item.SubItems.Add(record.StartupTime);
-            item.SubItems.Add(record.Duration);
-            item.SubItems.Add(record.FileStatus);
-            item.Name = record.GetHashCode().ToString();
-            item.Tag = record;
-            historyView.HistoryListview.Items.Add(item);
-            ListviewHelper.ResizeColumn(historyView.HistoryListview, historyView.HistoryListview.Columns.Count - 1);
+            historyView.SyncContext.Post(new SendOrPostCallback(s => 
+            {
+                ListViewItem item = new ListViewItem(record.Id);
+                item.SubItems.Add(record.FileName);
+                item.SubItems.Add(record.FileExtension);
+                item.SubItems.Add(record.FilePath);
+                item.SubItems.Add(record.StartupTime);
+                item.SubItems.Add(record.Duration);
+                item.SubItems.Add(record.FileStatus);
+                item.Name = record.GetHashCode().ToString();
+                item.Tag = record;
+                historyView.HistoryListview.Items.Add(item);
+                ListviewHelper.ResizeColumns(historyView.HistoryListview);
+            }), null);
         }
 
         private void RemoveRecordFromListview(HistoryRecordModel record)
         {
-            historyView.HistoryListview.Items.RemoveByKey(record.GetHashCode().ToString());
+            historyView.SyncContext.Post(new SendOrPostCallback(s =>
+            {
+                historyView.HistoryListview.Items.RemoveByKey(record.GetHashCode().ToString());
+            }), null);
         }
         #endregion
 

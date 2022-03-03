@@ -30,10 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HistoryView));
             this.HistoryListview = new MaterialSkin.Controls.MaterialListView();
-            this.NameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.TimeStampColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.IdColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.FileNameColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.FilePathColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.FileExtensionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.StartupTimeColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DurationColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.StatusColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.FileStatusColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.HistoryContextMenu = new MaterialSkin.Controls.MaterialContextMenuStrip();
             this.DeleteRecordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HistoryTableLayout = new System.Windows.Forms.TableLayoutPanel();
@@ -51,10 +54,13 @@
             this.HistoryListview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.HistoryListview.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.HistoryListview.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.NameColumnHeader,
-            this.TimeStampColumnHeader,
+            this.IdColumnHeader,
+            this.FileNameColumnHeader,
+            this.FileExtensionColumnHeader,
+            this.FilePathColumnHeader,
+            this.StartupTimeColumnHeader,
             this.DurationColumnHeader,
-            this.StatusColumnHeader});
+            this.FileStatusColumnHeader});
             this.HistoryTableLayout.SetColumnSpan(this.HistoryListview, 4);
             this.HistoryListview.ContextMenuStrip = this.HistoryContextMenu;
             this.HistoryListview.Depth = 0;
@@ -63,8 +69,6 @@
             this.HistoryListview.FullRowSelect = true;
             this.HistoryListview.HideSelection = false;
             this.HistoryListview.Location = new System.Drawing.Point(3, 73);
-            this.HistoryListview.MaximumSize = new System.Drawing.Size(852, 707);
-            this.HistoryListview.MinimumSize = new System.Drawing.Size(852, 707);
             this.HistoryListview.MouseLocation = new System.Drawing.Point(-1, -1);
             this.HistoryListview.MouseState = MaterialSkin.MouseState.OUT;
             this.HistoryListview.Name = "HistoryListview";
@@ -74,25 +78,40 @@
             this.HistoryListview.UseCompatibleStateImageBehavior = false;
             this.HistoryListview.View = System.Windows.Forms.View.Details;
             // 
-            // NameColumnHeader
+            // IdColumnHeader
             // 
-            this.NameColumnHeader.Text = "Name";
-            this.NameColumnHeader.Width = 100;
+            this.IdColumnHeader.Text = "Id";
+            this.IdColumnHeader.Width = 80;
             // 
-            // TimeStampColumnHeader
+            // FileNameColumnHeader
             // 
-            this.TimeStampColumnHeader.Text = "TimeStamp";
-            this.TimeStampColumnHeader.Width = 150;
+            this.FileNameColumnHeader.Text = "File Name";
+            this.FileNameColumnHeader.Width = 120;
+            // 
+            // FilePathColumnHeader
+            // 
+            this.FilePathColumnHeader.Text = "File Path";
+            this.FilePathColumnHeader.Width = 120;
+            // 
+            // FileExtensionColumnHeader
+            // 
+            this.FileExtensionColumnHeader.Text = "File Extension";
+            this.FileExtensionColumnHeader.Width = 130;
+            // 
+            // StartupTimeColumnHeader
+            // 
+            this.StartupTimeColumnHeader.Text = "Startup Time";
+            this.StartupTimeColumnHeader.Width = 130;
             // 
             // DurationColumnHeader
             // 
             this.DurationColumnHeader.Text = "Duration";
             this.DurationColumnHeader.Width = 100;
             // 
-            // StatusColumnHeader
+            // FileStatusColumnHeader
             // 
-            this.StatusColumnHeader.Text = "Status";
-            this.StatusColumnHeader.Width = 100;
+            this.FileStatusColumnHeader.Text = "File Status";
+            this.FileStatusColumnHeader.Width = 100;
             // 
             // HistoryContextMenu
             // 
@@ -104,7 +123,7 @@
             this.HistoryContextMenu.MouseState = MaterialSkin.MouseState.HOVER;
             this.HistoryContextMenu.Name = "HistoryContextMenu";
             this.HistoryContextMenu.ShowImageMargin = false;
-            this.HistoryContextMenu.Size = new System.Drawing.Size(216, 62);
+            this.HistoryContextMenu.Size = new System.Drawing.Size(216, 40);
             // 
             // DeleteRecordToolStripMenuItem
             // 
@@ -218,10 +237,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.ColumnHeader NameColumnHeader;
-        private System.Windows.Forms.ColumnHeader TimeStampColumnHeader;
-        private System.Windows.Forms.ColumnHeader DurationColumnHeader;
-        private System.Windows.Forms.ColumnHeader StatusColumnHeader;
         private System.Windows.Forms.TableLayoutPanel HistoryTableLayout;
         private MaterialSkin.Controls.MaterialDivider Splitter;
         private MaterialSkin.Controls.MaterialContextMenuStrip HistoryContextMenu;
@@ -229,5 +244,12 @@
         public MaterialSkin.Controls.MaterialListView HistoryListview;
         public MaterialSkin.Controls.MaterialButton ExportButton;
         public MaterialSkin.Controls.MaterialButton ClearButton;
+        private System.Windows.Forms.ColumnHeader IdColumnHeader;
+        private System.Windows.Forms.ColumnHeader FileNameColumnHeader;
+        private System.Windows.Forms.ColumnHeader FilePathColumnHeader;
+        private System.Windows.Forms.ColumnHeader FileExtensionColumnHeader;
+        private System.Windows.Forms.ColumnHeader StartupTimeColumnHeader;
+        private System.Windows.Forms.ColumnHeader DurationColumnHeader;
+        private System.Windows.Forms.ColumnHeader FileStatusColumnHeader;
     }
 }

@@ -70,6 +70,7 @@
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Enums\FileStatus.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\ListviewHelper.cs" />
     <Compile Include="Helpers\MessageBoxHelpers.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
@@ -155,8 +156,6 @@
   <ItemGroup>
     <Content Include="Secured.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Class Diagrams\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

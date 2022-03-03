@@ -19,11 +19,10 @@ namespace KeyloggerEvader
             Controller = new MainController(this);
         }
 
-        //Application Lifecycle: Start -> Create -> Show -> Close -> Terminate
         #region "MainWindow Lifecycle"
-        private void OnApplicationLoad(object sender, EventArgs e) //Method
+        private void OnApplicationLoad(object sender, EventArgs e)
         {
-            //Implementation
+            CheckForIllegalCrossThreadCalls = true;
             Controller.AddTabMenuViews();
         }
         #endregion

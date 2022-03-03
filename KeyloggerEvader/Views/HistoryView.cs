@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
-using KeyloggerEvader.Controllers;
-using KeyloggerEvader.Helpers;
 using KeyloggerEvader.Models;
+using KeyloggerEvader.Helpers;
+using KeyloggerEvader.Controllers;
 
 namespace KeyloggerEvader.Views
 {
@@ -10,11 +11,14 @@ namespace KeyloggerEvader.Views
     {
         #region "Properties"
         public HistoryController Controller { get; private set; }
+
+        public SynchronizationContext SyncContext { get; private set; }
         #endregion
 
         public HistoryView()
         {
             InitializeComponent();
+            SyncContext = SynchronizationContext.Current;
             Controller = new HistoryController(this);
         }
 

@@ -23,31 +23,24 @@ namespace KeyloggerEvader.Views
         {
             Dock = DockStyle.Fill;
             Controller.LoadData();
-            //Event
             ThemeSettingsExpansionPanel.SaveClick += ThemeSettingsExpansionPanelSaveClick;
-            //Event
             ApplicationSettingsExpansionPanel.SaveClick += ApplicationSettingsExpansionPanelSaveClick;
         }
         #endregion
 
         #region "Click Events"
-        //Method
         private void ThemeSettingsExpansionPanelSaveClick(object sender, EventArgs e)
         {
-            //Implementation.
             Controller.SaveThemeSettings();
         }
         
-        //Method
         private void ApplicationSettingsExpansionPanelSaveClick(object sender, EventArgs e)
         {
-            //Implementation
             Controller.SaveApplicationSettings();
         }
         #endregion
 
         #region "Double Buffered"
-        //Related for performance and to avoid flickering to make the control smooth.
         private void SetControlsDoubleBuffered()
         {
             foreach (Control Ctrl in Controls)

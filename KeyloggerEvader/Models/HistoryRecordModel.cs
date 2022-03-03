@@ -24,8 +24,9 @@ namespace KeyloggerEvader.Models
         public string FileStatus { get; set; }
         #endregion
 
-        public HistoryRecordModel(string FileName, string FilePath, string FileExtension , string StartupTime, string Duration, string FileStatus)
+        public HistoryRecordModel(string Id, string FileName, string FilePath, string FileExtension , string StartupTime, string Duration, string FileStatus)
         {
+            this.Id = Id;
             this.FileName = FileName;
             this.FilePath = FilePath;
             this.FileExtension = FileExtension;
@@ -36,6 +37,11 @@ namespace KeyloggerEvader.Models
 
         public HistoryRecordModel()
         {
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[{0}\t{1}\t{0}\t{0}\t{0}\t{0}\t{0}]", Id, FileName, FilePath, FileExtension, StartupTime, Duration, FileStatus);
         }
     }
 }

@@ -1,14 +1,15 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using KeyloggerEvader.Enums;
 using KeyloggerEvader.Views;
 using KeyloggerEvader.Models;
-using KeyloggerEvader.Services;
 using KeyloggerEvader.Helpers;
+using KeyloggerEvader.Services;
 using KeyloggerEvader.Utilities;
-using System;
 
 namespace KeyloggerEvader.Controllers
 {
@@ -46,42 +47,36 @@ namespace KeyloggerEvader.Controllers
 
         private void AddToListView(SandBoxModel sandBoxModel)
         {
-            ListViewItem item = new ListViewItem(sandBoxModel.FileInfo.Name);
-            item.SubItems.Add(sandBoxModel.FileInfo.Extension);
-            item.SubItems.Add(sandBoxModel.FileInfo.FullName);
-            item.SubItems.Add(sandBoxModel.FileStatus.ToString());
-            item.Name = sandBoxModel.GetHashCode().ToString();
-            item.Tag = sandBoxModel;
-            sandBoxView.FilesListview.Items.Add(item);
+            sandBoxView.SyncContext.Post(new SendOrPostCallback(s => 
+            {
+                ListViewItem item = new ListViewItem(sandBoxModel.FileInfo.Name);
+                item.SubItems.Add(sandBoxModel.FileInfo.Extension);
+                item.SubItems.Add(sandBoxModel.FileInfo.FullName);
+                item.SubItems.Add(sandBoxModel.FileStatus.ToString());
+                item.Name = sandBoxModel.GetHashCode().ToString();
+                item.Tag = sandBoxModel;
+                sandBoxView.FilesListview.Items.Add(item);
+            }), null);
         }
 
         private void UpdateStatus(SandBoxModel sandBoxModel)
         {
-            string key = sandBoxModel.GetHashCode().ToString();
-            if (sandBoxView.FilesListview.Items.ContainsKey(key))
+            sandBoxView.SyncContext.Post(new SendOrPostCallback(s =>
             {
-                sandBoxView.FilesListview.Items[key].SubItems[3].Text = sandBoxModel.FileStatus.ToString();
-            }
-            //foreach (ListViewItem item in sandBoxView.FilesListview.Items)
-            //{
-            //    if (item.Tag.Equals(sandBoxModel))
-            //    {
-            //        item.SubItems[3].Text = sandBoxModel.FileStatus.ToString();
-            //    }
-            //}
+                string key = sandBoxModel.GetHashCode().ToString();
+                if (sandBoxView.FilesListview.Items.ContainsKey(key))
+                {
+                    sandBoxView.FilesListview.Items[key].SubItems[3].Text = sandBoxModel.FileStatus.ToString();
+                }
+            }), null);
         }
 
         public void ExecuteSandBox(SandBoxModel sandBoxModel, string desktopName)
         {
-            //Stopwatch durationCounter = new Stopwatch();
-
             CustomProcess customProcess = new CustomProcess()
             {
                 FileName = sandBoxModel.FileInfo.FullName
             };
-
-            //durationCounter.Reset();
-            //durationCounter.Start();
 
             if (customProcess.Start(desktopName))
             {
@@ -98,24 +93,42 @@ namespace KeyloggerEvader.Controllers
                 sandBoxModel.FileStatus = FileStatus.Error;
                 UpdateStatus(sandBoxModel);
             }
-            //durationCounter.Stop();
-            //sandBoxModel.Duration = durationCounter.Elapsed;
+            sandBoxModel.Duration = customProcess.Duration;
 
-            //HistoryRecordModel historyModel = new HistoryRecordModel()
-            //{
-            //    FileName = sandBoxModel.FileInfo.Name,
-            //    FileExtension = sandBoxModel.FileInfo.Extension,
-            //    FilePath = Path.GetDirectoryName(sandBoxModel.FileInfo.FullName),
-            //    StartupTime = sandBoxModel.TimeStamp.ToString(),
-            //    Duration = sandBoxModel.Duration.ToString(),
-            //    FileStatus = sandBoxModel.FileStatus.ToString()
-            //};
+            HistoryRecordModel historyModel = new HistoryRecordModel()
+            {
+                Id = sandBoxModel.GetHashCode().ToString("x2"),
+                FileName = FileHelper.GetFileNameWithoutExtension(sandBoxModel.FileInfo.Name),
+                FileExtension = sandBoxModel.FileInfo.Extension,
+                FilePath = FileHelper.GetPathWithoutFileName(sandBoxModel.FileInfo.FullName),
+                StartupTime = sandBoxModel.TimeStamp.ToString(),
+                Duration = sandBoxModel.Duration.ToString(),
+                FileStatus = sandBoxModel.FileStatus.ToString()
+            };
 
-            //App.Instance.MainWindowInstance.Controller.HistoryView.Controller.AddRecord(historyModel);
+            App.Instance.MainWindowInstance.Controller.HistoryView.Controller.AddRecord(historyModel);
         }
         #endregion
 
         #region "Public Methods"
+        public void RemoveSandBox(SandBoxModel sandBoxModel)
+        {
+            if (SandBoxes != null && SandBoxes.Count > 0)
+            {
+                SandBoxes.Remove(sandBoxModel);
+            }
+            sandBoxView.FilesListview.Items.RemoveByKey(sandBoxModel.GetHashCode().ToString());
+        }
+
+        public void ClearSandBoxes()
+        {
+            if (SandBoxes != null && SandBoxes.Count > 0)
+            {
+                SandBoxes.Clear();
+            }
+            sandBoxView.FilesListview.Items.Clear();
+        }
+
         public void ProcessFiles(string[] filesPath)
         {
             //Loop thorugh each file.
