@@ -73,7 +73,7 @@
             this.ThemeSettingsExpansionPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ThemeSettingsExpansionPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ThemeSettingsExpansionPanel.Location = new System.Drawing.Point(40, 40);
-            this.ThemeSettingsExpansionPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.ThemeSettingsExpansionPanel.Margin = new System.Windows.Forms.Padding(16, 1, 16, 0);
             this.ThemeSettingsExpansionPanel.MouseState = MaterialSkin.MouseState.HOVER;
             this.ThemeSettingsExpansionPanel.Name = "ThemeSettingsExpansionPanel";
             this.ThemeSettingsExpansionPanel.Padding = new System.Windows.Forms.Padding(25, 80, 25, 80);
@@ -472,7 +472,6 @@
             // ApplicationSettingsExpansionPanel
             // 
             this.ApplicationSettingsExpansionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ApplicationSettingsExpansionPanel.Collapse = true;
             this.ApplicationSettingsExpansionPanel.Controls.Add(this.EnableHistoryCheckBox);
             this.ApplicationSettingsExpansionPanel.Controls.Add(this.AddStartupCheckBox);
             this.ApplicationSettingsExpansionPanel.Depth = 0;
@@ -482,11 +481,11 @@
             this.ApplicationSettingsExpansionPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.ApplicationSettingsExpansionPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ApplicationSettingsExpansionPanel.Location = new System.Drawing.Point(40, 108);
-            this.ApplicationSettingsExpansionPanel.Margin = new System.Windows.Forms.Padding(16, 1, 16, 0);
+            this.ApplicationSettingsExpansionPanel.Margin = new System.Windows.Forms.Padding(16);
             this.ApplicationSettingsExpansionPanel.MouseState = MaterialSkin.MouseState.HOVER;
             this.ApplicationSettingsExpansionPanel.Name = "ApplicationSettingsExpansionPanel";
             this.ApplicationSettingsExpansionPanel.Padding = new System.Windows.Forms.Padding(25, 80, 25, 80);
-            this.ApplicationSettingsExpansionPanel.Size = new System.Drawing.Size(858, 48);
+            this.ApplicationSettingsExpansionPanel.Size = new System.Drawing.Size(858, 236);
             this.ApplicationSettingsExpansionPanel.TabIndex = 3;
             this.ApplicationSettingsExpansionPanel.Title = "Application Settings";
             this.ApplicationSettingsExpansionPanel.UseAccentColor = true;
@@ -523,6 +522,7 @@
             this.AddStartupCheckBox.TabIndex = 2;
             this.AddStartupCheckBox.Text = "Add to Startup";
             this.AddStartupCheckBox.UseVisualStyleBackColor = true;
+            this.AddStartupCheckBox.CheckedChanged += new System.EventHandler(this.AddStartupCheckBoxCheckedChanged);
             // 
             // SplitterPanel
             // 

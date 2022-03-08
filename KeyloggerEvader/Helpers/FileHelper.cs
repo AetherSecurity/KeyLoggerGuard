@@ -51,5 +51,25 @@ namespace KeyloggerEvader.Helpers
                 return "";
             }
         }
+
+        public static string GetFileNameWithoutPath(string filePath, bool includeFileExtension)
+        {
+            try
+            {
+                if (includeFileExtension == false)
+                {
+                    return GetFileNameWithoutExtension(Path.GetFileName(filePath));
+                }
+                else
+                {
+                    return Path.GetFileName(filePath);
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+       
     }
 }

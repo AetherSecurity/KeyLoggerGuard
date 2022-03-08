@@ -18,7 +18,7 @@ namespace KeyloggerEvader.Views
             Controller = new SettingsController(this);
         }
 
-        #region "View LifeCycle"
+        #region "View Event Handlers"
         private void OnViewLoad(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill;
@@ -26,9 +26,7 @@ namespace KeyloggerEvader.Views
             ThemeSettingsExpansionPanel.SaveClick += ThemeSettingsExpansionPanelSaveClick;
             ApplicationSettingsExpansionPanel.SaveClick += ApplicationSettingsExpansionPanelSaveClick;
         }
-        #endregion
 
-        #region "Click Events"
         private void ThemeSettingsExpansionPanelSaveClick(object sender, EventArgs e)
         {
             Controller.SaveThemeSettings();
@@ -38,9 +36,26 @@ namespace KeyloggerEvader.Views
         {
             Controller.SaveApplicationSettings();
         }
+
+        private void AddStartupCheckBoxCheckedChanged(object sender, EventArgs e)
+        {
+            Controller.SetStartup(AddStartupCheckBox.Checked);
+        }
         #endregion
 
-        #region "Double Buffered"
+        #region "View Overrided Methods"
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
+        #endregion
+
+        #region "Private Methods"
         private void SetControlsDoubleBuffered()
         {
             foreach (Control Ctrl in Controls)
@@ -52,15 +67,8 @@ namespace KeyloggerEvader.Views
                 }
             }
         }
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;
-                return cp;
-            }
-        }
         #endregion
+
+     
     }
 }

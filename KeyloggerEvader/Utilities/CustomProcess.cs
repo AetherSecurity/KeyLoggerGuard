@@ -3,6 +3,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using KeyloggerEvader.Helpers;
+using System.IO;
 
 namespace KeyloggerEvader.Utilities
 {
@@ -51,45 +52,123 @@ namespace KeyloggerEvader.Utilities
         }
         #endregion
 
+        /*
+            if (fileExtension.Equals(".exe"))
+            {
+                string command = string.Format("\"{0}\"", FileName);
+                WinAPI.STARTUPINFO startupInfo = new WinAPI.STARTUPINFO
+                {
+                    lpDesktop = desktopName
+                };
+                startupInfo.dwFlags |= 0x00000020;
+
+                WinAPI.PROCESS_INFORMATION processInfo = new WinAPI.PROCESS_INFORMATION();
+
+                bool result = WinAPI.CreateProcess(command, command, IntPtr.Zero, IntPtr.Zero, false, 0, IntPtr.Zero, null, ref startupInfo, out processInfo);
+                if (result == true)
+                {
+                    durationCounter.Reset();
+                    durationCounter.Start();
+                    Id = (int)processInfo.dwProcessId;
+                    Handle = processInfo.hProcess;
+                    IsRunning = true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (ResolveExtension(fileExtension, ref associatedFile))
+            {
+                string command = string.Format("\"{0}\" \"{1}\"", associatedFile, FileName);
+                WinAPI.STARTUPINFO startupInfo = new WinAPI.STARTUPINFO
+                {
+                    lpDesktop = desktopName
+                };
+                WinAPI.PROCESS_INFORMATION processInfo = new WinAPI.PROCESS_INFORMATION();
+
+                bool result = WinAPI.CreateProcess(null, command, IntPtr.Zero, IntPtr.Zero, false, 0, IntPtr.Zero, null, ref startupInfo, out processInfo);
+                if (result == true)
+                {
+                    durationCounter.Reset();
+                    durationCounter.Start();
+                    Id = (int)processInfo.dwProcessId;
+                    Handle = processInfo.hProcess;
+                    IsRunning = true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+         */
         public bool Start(string desktopName = null)
         {
             if (IsRunning == false && Handle == IntPtr.Zero)
             {
-                string associatedFile = null;
                 string fileExtension = FileHelper.GetFileExtension(FileName);
-                if (string.IsNullOrEmpty(fileExtension) == false)
+                string procline = string.Format("\"{0}\"", FileName);
+                Debug.WriteLine("ProcLine: " + procline);
+                int i;
+                for (i = 0; i < 10; i++)
                 {
-                    if (ResolveExtension(fileExtension, ref associatedFile))
+                    if (fileExtension == ".dll")
                     {
-                        string command = string.Format("\"{0}\" \"{1}\"", associatedFile, FileName);
-                        WinAPI.STARTUPINFO startupInfo = new WinAPI.STARTUPINFO
+                        procline = string.Format("{0} {1}", @"rundll32", procline);
+                        break;
+                    }
+                    else if (fileExtension != ".exe")
+                    {
+                        string file = "";
+                        if (!ResolveExtension(fileExtension, ref file))
                         {
-                            lpDesktop = desktopName
-                        };
-                        WinAPI.PROCESS_INFORMATION processInfo = new WinAPI.PROCESS_INFORMATION();
+                            break;
+                        }
+                        procline = string.Format("\"{0}\" {1}", file, procline);
+                        fileExtension = Path.GetExtension(file).ToLower();
+                        //fileExtension = FileHelper.GetFileExtension(file).ToLower();
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (i == 10)
+                {
+                    Console.WriteLine("Could not locate default program");
+                    return false;
+                }
 
-                        bool result = WinAPI.CreateProcess(null, command, IntPtr.Zero, IntPtr.Zero, false, 0, IntPtr.Zero, null, ref startupInfo, out processInfo);
-                        if (result == true)
-                        {
-                            durationCounter.Reset();
-                            durationCounter.Start();
-                            Id = (int)processInfo.dwProcessId;
-                            Handle = processInfo.hProcess;
-                            IsRunning = true;
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                try
+                {
+                    WinAPI.STARTUPINFO startupInfo = new WinAPI.STARTUPINFO();
+                    startupInfo.lpDesktop = desktopName;
+                    startupInfo.dwFlags |= 0x00000020;
+                    WinAPI.PROCESS_INFORMATION processInfo = new WinAPI.PROCESS_INFORMATION();
+                    bool result = WinAPI.CreateProcess(null, procline, IntPtr.Zero, IntPtr.Zero, false, 0, IntPtr.Zero, null, ref startupInfo, out processInfo);
+                    if (result == true)
+                    {
+                        durationCounter.Reset();
+                        durationCounter.Start();
+                        Id = (int)processInfo.dwProcessId;
+                        Handle = processInfo.hProcess;
+                        IsRunning = true;
+                        return true;
                     }
                     else
                     {
                         return false;
                     }
                 }
-                else
+                catch (Exception ex)
                 {
+                    Console.WriteLine("Exception at Start(): {0}", ex.Message);
                     return false;
                 }
             }

@@ -2,6 +2,10 @@
 using MaterialSkin;
 using MaterialSkin.Controls;
 using KeyloggerEvader.Views;
+using Microsoft.Win32;
+using System.Windows.Forms;
+using KeyloggerEvader.Helpers;
+using System.Diagnostics;
 
 namespace KeyloggerEvader.Controllers
 {
@@ -22,7 +26,29 @@ namespace KeyloggerEvader.Controllers
         }
         #endregion
 
-        #region "Data Management"
+        #region "Public Methods"
+        public void SetStartup(bool setToStartup)
+        {
+            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            try
+            {
+                if (setToStartup == true)
+                {
+                    registryKey.SetValue(FileHelper.GetFileNameWithoutPath(Application.ExecutablePath, false), Application.ExecutablePath);
+                    Debug.WriteLine("Key Added");
+                }
+                else
+                {
+                    registryKey.DeleteValue(FileHelper.GetFileNameWithoutPath(Application.ExecutablePath, false), false);
+                    Debug.WriteLine("Key Deleted");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("SetStartup Exception: " + ex.Message);
+            }
+        }
+
         public void LoadData()
         {
             GetData();
@@ -67,9 +93,7 @@ namespace KeyloggerEvader.Controllers
             settingsView.AddStartupCheckBox.Checked = App.Instance.Settings.AutoStartup;
             settingsView.EnableHistoryCheckBox.Checked = App.Instance.Settings.HistoryLogging;
         }
-        #endregion
 
-        #region "Save Data"
         public void SaveThemeSettings()
         {
             //Tab Menu
